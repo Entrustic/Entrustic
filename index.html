@@ -1,0 +1,2308 @@
+?<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrustic | برمجة المواقع الإلكترونية والأنظمة الإدارية الذكية</title>
+    <meta name="description" content="شركة Entrustic للبرمجيات - تصميم وتطوير مواقع الويب الاحترافية وأنظمة إدارة العيادات، المحلات، وأندية الجيم. برمجيات مخصصة بالكامل تعمل بدون إنترنت وبأحدث تقنيات Flutter.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Google Fonts: Cairo for Arabic, Plus Jakarta Sans for English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#0E5795',
+                            dark: '#093B66',
+                            light: '#1B75BC',
+                            50: '#F0F7FD',
+                            100: '#DCEEFA'
+                        },
+                        accent: {
+                            DEFAULT: '#00A896',
+                            light: '#02C39A',
+                            dark: '#028090'
+                        },
+                        whatsapp: '#25D366',
+                        whatsappDark: '#128C7E'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        jakarta: ['"Plus Jakarta Sans"', 'Cairo', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glass': '0 20px 40px -15px rgba(14, 87, 149, 0.08)',
+                        'glow': '0 0 25px rgba(14, 87, 149, 0.25)',
+                        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.04)'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        [dir="ltr"] body {
+            font-family: '"Plus Jakarta Sans"', 'Cairo', sans-serif;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(14, 87, 149, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-800 antialiased selection:bg-primary selection:text-white relative overflow-x-hidden">
+
+    <!-- Top Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-panel border-b border-slate-200/80 shadow-xs" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo with transparent PNG -->
+            <a href="#" class="flex items-center group py-1">
+                <img src="entrustic-logo.png?v=3" alt="Entrustic" class="h-12 sm:h-15 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-7 text-sm font-bold text-slate-600">
+                <a href="#overview" class="hover:text-primary transition" data-i18n="nav_vision">الرؤية والخدمات</a>
+                <a href="#websites" class="px-3.5 py-1.5 rounded-xl bg-primary-50 text-primary hover:bg-primary hover:text-white transition flex items-center gap-2 border border-primary/20 shadow-xs">
+                    <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                    <span data-i18n="nav_websites">تصميم وبرمجة المواقع</span>
+                </a>
+                <a href="#specialties" class="hover:text-primary transition" data-i18n="nav_clinics">العيادات الطبية</a>
+                <a href="#commercial-deep" class="hover:text-primary transition" data-i18n="nav_commercial">المحلات والجيم</a>
+                <a href="#core-features" class="hover:text-primary transition" data-i18n="nav_features">الميزات الذكية</a>
+                <a href="#configurator" class="hover:text-primary transition" data-i18n="nav_pricing">اطلب مشروعك</a>
+            </nav>
+
+            <!-- Action Buttons: Language Toggle & WhatsApp CTA -->
+            <div class="flex items-center gap-3">
+                <!-- Language Toggle Button -->
+                <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 shadow-xs transition">
+                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                    </svg>
+                    <span id="lang-label">English</span>
+                </button>
+
+                <!-- Book Demo Button -->
+                <a id="nav-whatsapp-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85." target="_blank" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-glow transition hover:scale-102">
+                    <span data-i18n="btn_consult">تواصل معنا</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="overview" class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden bg-gradient-to-b from-primary-50/70 via-white to-[#F8FAFC]">
+        <!-- Decorative Ambient Background Blobs -->
+        <div class="absolute top-10 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 left-10 w-96 h-96 bg-accent/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none"></div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+                
+                <!-- Hero Left / Content (RTL Right) -->
+                <div class="w-full lg:w-1/2 text-center lg:text-start space-y-6">
+                    
+                    <!-- Pill Tag -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-primary/20 shadow-xs">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+                        <span class="text-xs font-extrabold text-primary" data-i18n="hero_badge">✨ شريكك البرمجي لتطوير المواقع والأنظمة الذكية</span>
+                    </div>
+
+                    <!-- Main Hero Title -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.25] tracking-tight">
+                        <span data-i18n="hero_title_1">نصمم موقعك ونظامك البرمجي</span> <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-light to-accent" data-i18n="hero_title_2">بأعلى دقة، أسرع أداء، وبدون تعقيد.</span>
+                    </h1>
+
+                    <!-- Hero Description -->
+                    <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0" data-i18n="hero_desc">
+                        في Entrustic نبني لعملك كل ما تحتاجه رقمياً: من المواقع وصفحات الهبوط التسويقية الجذابة، إلى برمجيات إدارة العيادات والمحلات وأندية الجيم المبنية بتقنية Flutter التي تعمل بدون إنترنت مع ربط تلقائي فوري بالواتساب والسحابة.
+                    </p>
+
+                    <!-- Entrustic Two Standalone Pillars -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-start">
+                        <a href="#websites" class="p-3.5 rounded-2xl bg-white border border-primary/30 shadow-xs hover:border-primary hover:shadow-md transition flex items-center gap-3 group">
+                            <div class="w-10 h-10 rounded-xl bg-primary-50 text-primary flex items-center justify-center text-xl group-hover:scale-110 transition shrink-0">🌐</div>
+                            <div>
+                                <span class="text-xs font-black text-slate-900 block" data-i18n="hero_p1_title">قسم تصميم وتطوير المواقع</span>
+                                <span class="text-[11px] text-slate-500 block leading-tight" data-i18n="hero_p1_sub">مواقع شركات، صفحات هبوط إعلانية، ومتاجر</span>
+                            </div>
+                        </a>
+                        <a href="#specialties" class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-accent hover:shadow-md transition flex items-center gap-3 group">
+                            <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent-dark flex items-center justify-center text-xl group-hover:scale-110 transition shrink-0">💻</div>
+                            <div>
+                                <span class="text-xs font-black text-slate-900 block" data-i18n="hero_p2_title">قسم الأنظمة والبرمجيات الذكية</span>
+                                <span class="text-[11px] text-slate-500 block leading-tight" data-i18n="hero_p2_sub">عيادات، محلات، جيم، تعمل بدون نت</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-1">
+                        <a href="#websites" class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-primary to-primary-light text-white font-bold text-sm sm:text-base shadow-lg shadow-primary/20 hover:scale-105 transition flex items-center gap-2.5">
+                            <span data-i18n="hero_cta_web">استكشف خدمات المواقع</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+
+                        <a href="#specialties" class="px-7 py-3.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-bold text-sm sm:text-base shadow-xs hover:border-primary/40 transition flex items-center gap-2">
+                            <span data-i18n="hero_cta_software">أنظمة العيادات والشركات</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Key Badges -->
+                    <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs font-semibold text-slate-500">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-emerald-500 font-black">✓</span>
+                            <span data-i18n="badge_websites">مواقع ويب سريعة وجذابة</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-emerald-500 font-black">✓</span>
+                            <span data-i18n="badge_offline">برامج تعمل بدون إنترنت</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-emerald-500 font-black">✓</span>
+                            <span data-i18n="badge_whatsapp">ربط الواتساب الآلي</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Hero Right / Visual Mockup (RTL Left) -->
+                <div class="w-full lg:w-1/2 relative">
+                    <!-- Main Dashboard Card Preview -->
+                    <div class="bg-white rounded-3xl p-6 shadow-2xl border border-slate-200/90 relative overflow-hidden">
+                        
+                        <!-- Top Fake Window Header -->
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                                <span class="text-xs font-bold text-slate-500 mr-2" data-i18n="mockup_top_status">منظومة Entrustic (الوضع النشط 🟢)</span>
+                            </div>
+                            <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200" data-i18n="mockup_sync">
+                                مزامنة سحابية فورية
+                            </span>
+                        </div>
+
+                        <!-- Stats Cards Inside Mockup -->
+                        <div class="grid grid-cols-3 gap-3 mb-5">
+                            <div class="bg-primary-50/70 p-3 rounded-2xl border border-primary-100">
+                                <span class="text-[10px] text-slate-500 font-bold block" data-i18n="mock_web_visits">زيارات الموقع</span>
+                                <span class="text-xl font-black text-primary-dark" data-i18n="mock_val_speed">سريع جداً</span>
+                            </div>
+                            <div class="bg-emerald-50/70 p-3 rounded-2xl border border-emerald-100">
+                                <span class="text-[10px] text-slate-500 font-bold block" data-i18n="mock_wa_sent">رسائل الواتساب</span>
+                                <span class="text-xl font-black text-emerald-700" data-i18n="mock_val_wa">تلقائية 100%</span>
+                            </div>
+                            <div class="bg-cyan-50/70 p-3 rounded-2xl border border-cyan-100">
+                                <span class="text-[10px] text-slate-500 font-bold block" data-i18n="mock_offline_status">العمل بدون نت</span>
+                                <span class="text-xl font-black text-cyan-800" data-i18n="mock_val_offline">مستمر بلا توقف</span>
+                            </div>
+                        </div>
+
+                        <!-- Mock Clinic & Commercial Workflow Row -->
+                        <div class="space-y-2.5">
+                            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center justify-between text-xs">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">🌐</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800" data-i18n="mock_item_web">موقع إلكتروني جديد: تم إطلاق صفحة الهبوط</h4>
+                                        <span class="text-[10px] text-slate-500" data-i18n="mock_item_web_sub">متجاوب مع الهواتف • جاهز لمحركات البحث (SEO)</span>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold text-[10px]" data-i18n="mock_status_live">منشور أونلاين ✓</span>
+                            </div>
+
+                            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center justify-between text-xs">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">⚡</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800" data-i18n="mock_item_clinic">عيادة د. محمد سعيد - مركز علاج طبيعي</h4>
+                                        <span class="text-[10px] text-slate-500" data-i18n="mock_item_clinic_sub">خطة التأهيل ومواعيد الجلسات مؤكدة بالواتساب</span>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-0.5 rounded bg-blue-100 text-primary font-bold text-[10px]" data-i18n="mock_status_done">مكتمل ✓</span>
+                            </div>
+                        </div>
+
+                        <!-- Floating Live WhatsApp Message Badge -->
+                        <div class="absolute -bottom-3 -left-3 bg-white p-3.5 rounded-2xl shadow-xl border border-emerald-200 flex items-center gap-3 animate-float">
+                            <div class="w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-base">
+                                💬
+                            </div>
+                            <div class="text-xs">
+                                <span class="font-bold text-slate-800 block" data-i18n="mock_wa_bubble_head">إشعار واتساب فوري:</span>
+                                <span class="text-slate-500 text-[11px]" data-i18n="mock_wa_bubble_sub">"عميل جديد قام بحجز استشارة عبر موقعك"</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- REALISTIC STARTUP VALUE PILLARS (Replaced unrealistic stats!) -->
+    <section class="relative z-20 -mt-8 container mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div class="bg-white/95 backdrop-blur-md rounded-3xl shadow-glass border border-slate-200/80 p-6 sm:p-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x lg:divide-x-reverse divide-slate-100">
+                
+                <div class="pt-3 lg:pt-0">
+                    <div class="w-10 h-10 rounded-2xl bg-primary-50 text-primary flex items-center justify-center text-xl mx-auto mb-2">💻</div>
+                    <h3 class="text-lg font-black text-slate-900" data-i18n="val_1_title">مواقع وبرامج مخصصة 100%</h3>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="val_1_desc">نبني كل شاشة وسطر كود خصيصاً لفكرتك دون قوالب جاهزة</p>
+                </div>
+
+                <div class="pt-3 lg:pt-0">
+                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mx-auto mb-2">⚡</div>
+                    <h3 class="text-lg font-black text-slate-900" data-i18n="val_2_title">تعمل بدون إنترنت (أوفلاين)</h3>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="val_2_desc">برامج لا تتوقف أبداً عند انقطاع الشبكة مع مزامنة فورية</p>
+                </div>
+
+                <div class="pt-3 lg:pt-0">
+                    <div class="w-10 h-10 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl mx-auto mb-2">💬</div>
+                    <h3 class="text-lg font-black text-slate-900" data-i18n="val_3_title">أتمتة ذكية عبر الواتساب</h3>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="val_3_desc">إرسال الفواتير، التقارير، وتأكيدات الحجز تلقائياً لعملائك</p>
+                </div>
+
+                <div class="pt-3 lg:pt-0">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mx-auto mb-2">🤝</div>
+                    <h3 class="text-lg font-black text-slate-900" data-i18n="val_4_title">تواصل ودعم مباشر</h3>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="val_4_desc">معك خطوة بخطوة من الفكرة والتصميم حتى الإطلاق والتشغيل</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Website Design & Development (مواقع الويب الاحترافية) -->
+    <section id="websites" class="py-20 bg-white border-b border-slate-200/70 relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-primary-50 text-primary text-xs font-bold uppercase tracking-wider">
+                    <span data-i18n="web_badge">تصميم وتطوير المواقع الإلكترونية</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900" data-i18n="web_sec_title">
+                    نصمم لك موقع ويب احترافي يعكس هوية عملك ويجلب العملاء
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed" data-i18n="web_sec_sub">
+                    لا نكتفي ببرمجة الأنظمة الإدارية، بل نصمم ونبني مواقع إلكترونية متطورة وصفحات هبوط تسويقية تمنح مشروعك واجهة رقمية مشرفة تزيد مبيعاتك وتظهر نشاطك بأفضل صورة.
+                </p>
+            </div>
+
+            <!-- 3 Website Categories Grid with Real Visual Mockups -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+                
+                <!-- 1. Corporate & Business Websites -->
+                <div class="bg-[#F8FAFC] rounded-3xl p-6 sm:p-7 border border-slate-200/80 hover:shadow-2xl hover:border-primary/50 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Realistic Browser Window Frame -->
+                        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden mb-6 group-hover:border-primary/30 transition">
+                            <div class="bg-slate-100/90 px-3.5 py-2 border-b border-slate-200 flex items-center justify-between">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 font-mono">company-brand.com</span>
+                                <span class="text-[10px] text-emerald-600 font-bold">SSL 🔒</span>
+                            </div>
+                            <div class="p-3.5 space-y-2 bg-gradient-to-b from-slate-50 to-white text-[11px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-black text-slate-900 text-xs">Entrustic Enterprise</span>
+                                    <span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-bold text-[9px]">SEO Ready</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full"></div>
+                                <div class="w-3/4 bg-slate-200 h-2 rounded-full"></div>
+                                <div class="flex gap-1.5 pt-1">
+                                    <span class="px-2 py-1 rounded bg-blue-50 text-blue-700 text-[10px] font-bold" data-i18n="mock_corp_tab1">✓ خدماتنا</span>
+                                    <span class="px-2 py-1 rounded bg-slate-100 text-slate-600 text-[10px]" data-i18n="mock_corp_tab2">سابقة الأعمال</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2.5 mb-2">
+                            <span class="text-xl">🏢</span>
+                            <h3 class="text-xl font-black text-slate-900" data-i18n="web_cat1_title">مواقع الشركات والمؤسسات</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-5 leading-relaxed" data-i18n="web_cat1_desc">
+                            موقع تعريفي متكامل يعرض خدماتك، سابقة أعمالك، وطرق التواصل بفخامة وسرعة عالية تعزز ثقة عملائك.
+                        </p>
+                        
+                        <ul class="space-y-2.5 text-xs font-medium text-slate-700 mb-6">
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat1_f1">تصميم فريد وعصري خاص بهوية شركتك</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat1_f2">دعم كامل للغتين (العربية والإنجليزية)</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat1_f3">تهيئة كاملة لمحركات البحث (SEO) للظهور في جوجل</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat1_f4">متجاوب بنسبة 100% مع كافة شاشات الهواتف والكمبيوتر</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a id="web-cat1-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D9%85%D9%88%D9%82%D8%B9%20%D8%A5%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A%20%D9%84%D8%B4%D8%B1%D9%83%D8%AA%D9%8A." target="_blank" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-primary text-white text-center text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm">
+                        <span data-i18n="web_cat1_btn">اطلب موقعك التعريفي</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- 2. Landing Pages for Ads -->
+                <div class="bg-[#F8FAFC] rounded-3xl p-6 sm:p-7 border border-slate-200/80 hover:shadow-2xl hover:border-emerald-500/50 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Realistic Mobile Ad Frame -->
+                        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden mb-6 group-hover:border-emerald-500/30 transition">
+                            <div class="bg-emerald-50/80 px-3.5 py-2 border-b border-emerald-100 flex items-center justify-between">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                                    <span class="text-[10px] text-emerald-800 font-bold" data-i18n="mock_ad_badge">حملة إعلانية نشطة</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 font-mono">promo.deal.com</span>
+                            </div>
+                            <div class="p-3.5 space-y-2 bg-gradient-to-b from-white to-emerald-50/30 text-[11px]">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-extrabold text-slate-900 text-xs" data-i18n="mock_ad_headline">احصل على العرض اليوم</span>
+                                    <span class="text-amber-500 font-black text-[10px]">⭐⭐⭐⭐⭐ 4.9</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full"></div>
+                                <div class="p-2 rounded-lg bg-emerald-500 text-white font-bold text-center text-[10px] shadow-sm" data-i18n="mock_ad_cta">
+                                    💬 تواصل واطلب عبر الواتساب فوراً
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2.5 mb-2">
+                            <span class="text-xl">🚀</span>
+                            <h3 class="text-xl font-black text-slate-900" data-i18n="web_cat2_title">صفحات الهبوط التسويقية</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-5 leading-relaxed" data-i18n="web_cat2_desc">
+                            صفحات هبوط مصممة خصيصاً للحملات الإعلانية على فيسبوك وتيك توك وجوجل، تركز على مضاعفة التحويلات وطلبات الشراء.
+                        </p>
+                        
+                        <ul class="space-y-2.5 text-xs font-medium text-slate-700 mb-6">
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat2_f1">سرعة تحميل فائقة لمنع خروج الزائر من الإعلان</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat2_f2">أزرار حجز وتواصل مباشر وفوري عبر الواتساب</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat2_f3">ربط بيكسل الإعلانات (Meta Pixel & TikTok Pixel)</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat2_f4">نماذج تسجيل سريعة وإشعارات لحظية على موبايلك</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a id="web-cat2-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%B5%D9%81%D8%AD%D8%A9%20%D9%87%D8%A8%D9%88%D8%B7%20%D8%AA%D8%B3%D9%88%D9%8A%D9%82%D9%8A%D8%A9." target="_blank" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-center text-xs font-bold transition flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20">
+                        <span data-i18n="web_cat2_btn">اطلب صفحة هبوط لإعلاناتك</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- 3. Portals & Web Apps -->
+                <div class="bg-[#F8FAFC] rounded-3xl p-6 sm:p-7 border border-slate-200/80 hover:shadow-2xl hover:border-cyan-500/50 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Realistic Portal Frame -->
+                        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden mb-6 group-hover:border-cyan-500/30 transition">
+                            <div class="bg-slate-100/90 px-3.5 py-2 border-b border-slate-200 flex items-center justify-between">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span>
+                                    <span class="text-[10px] text-slate-700 font-bold" data-i18n="mock_portal_badge">بوابة حجز ودفع</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 font-mono">portal.brand.com</span>
+                            </div>
+                            <div class="p-3.5 space-y-2 bg-gradient-to-b from-white to-cyan-50/20 text-[11px]">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-slate-800" data-i18n="mock_portal_label">حجز موعد أونلاين:</span>
+                                    <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold text-[9px]" data-i18n="mock_portal_status">متاح الآن</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-1.5 text-[10px]">
+                                    <div class="p-1.5 rounded bg-slate-50 border border-slate-200 text-center font-bold" data-i18n="mock_portal_pay1">فيزا / ميزة 💳</div>
+                                    <div class="p-1.5 rounded bg-slate-50 border border-slate-200 text-center font-bold" data-i18n="mock_portal_pay2">فوري ⚡</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2.5 mb-2">
+                            <span class="text-xl">⚡</span>
+                            <h3 class="text-xl font-black text-slate-900" data-i18n="web_cat3_title">البوابات والمتاجر التفاعلية</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-5 leading-relaxed" data-i18n="web_cat3_desc">
+                            تطبيقات ويب متقدمة تتيح لعملائك حجز المواعيد، متابعة طلباتهم، والدفع الإلكتروني المباشر من خلال المتصفح.
+                        </p>
+                        
+                        <ul class="space-y-2.5 text-xs font-medium text-slate-700 mb-6">
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat3_f1">نظام حجز مواعيد وكشوفات تفاعلي أونلاين</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat3_f2">ربط بوابات الدفع الإلكتروني (فيزا، فوري، ميزة)</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat3_f3">بوابة دخول آمنة للمستخدمين والعملاء</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span data-i18n="web_cat3_f4">ربط مباشر بقاعدة بيانات برامجك الداخلية</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a id="web-cat3-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A8%D9%88%D8%A7%D8%A8%D8%A9%20%D9%88%D9%8A%D8%A8%20%D8%A3%D9%88%20%D9%85%D8%AA%D8%AC%D8%B1%20%D8%AA%D9%81%D8%A7%D8%B9%D9%84%D9%8A." target="_blank" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-cyan-600 text-white text-center text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm">
+                        <span data-i18n="web_cat3_btn">اطلب منصة أو بوابة ويب</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Website Guarantee Bar -->
+            <div class="bg-gradient-to-r from-primary-50 via-white to-primary-50 p-6 rounded-2xl border border-primary-100 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-4xl mx-auto text-center sm:text-start">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">🔒</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm" data-i18n="web_guarantee_title">استضافة سحابية فائقة السرعة + شهادة أمان SSL مجاناً</h4>
+                        <p class="text-xs text-slate-500" data-i18n="web_guarantee_sub">نضمن لموقعك العمل على مدار الساعة بأعلى درجات الأمان والسرعة والاستقرار.</p>
+                    </div>
+                </div>
+                <a id="web-guarantee-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1%D8%A9%20%D9%84%D8%AA%D8%B7%D9%88%D9%8A%D8%B1%20%D9%85%D9%88%D9%82%D8%B9%20%D9%88%D9%8A%D8%A8." target="_blank" class="px-5 py-2.5 rounded-xl bg-primary text-white font-bold text-xs shrink-0 shadow-xs hover:bg-primary-dark transition">
+                    <span data-i18n="web_guarantee_btn">استشارة مجانية للموقع</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 2: Medical Clinics Interactive Showcase (The 5 Specialties) -->
+    <section id="specialties" class="py-24 bg-[#F8FAFC]">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-primary-50 text-primary text-xs font-bold uppercase tracking-wider">
+                    <span data-i18n="clinics_sec_badge">أنظمة العيادات التخصصية</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900" data-i18n="clinics_sec_title">
+                    برمجيات مخصصة ومفصلة لكل تخصص طبي
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed" data-i18n="clinics_sec_sub">
+                    اختر تخصص عيادتك وتعرف على الأدوات البرمجية الدقيقة المصممة خصيصاً لسير عملك اليومي.
+                </p>
+            </div>
+
+            <!-- Specialty Tabs Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-2.5 mb-10 max-w-4xl mx-auto">
+                <button onclick="switchClinic('nutrition')" id="tab-nutrition" class="clinic-tab-btn px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-primary text-white shadow-md">
+                    <span>🍏</span>
+                    <span data-i18n="spec_nutrition">التغذية والرجيم</span>
+                </button>
+
+                <button onclick="switchClinic('dental')" id="tab-dental" class="clinic-tab-btn px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+                    <span>🦷</span>
+                    <span data-i18n="spec_dental">عيادات الأسنان</span>
+                </button>
+
+                <button onclick="switchClinic('derma')" id="tab-derma" class="clinic-tab-btn px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+                    <span>✨</span>
+                    <span data-i18n="spec_derma">الجلدية والتجميل</span>
+                </button>
+
+                <button onclick="switchClinic('pediatrics')" id="tab-pediatrics" class="clinic-tab-btn px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+                    <span>👶</span>
+                    <span data-i18n="spec_pedia">عيادات الأطفال</span>
+                </button>
+
+                <button onclick="switchClinic('physio')" id="tab-physio" class="clinic-tab-btn px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+                    <span>⚡</span>
+                    <span data-i18n="spec_physio">العلاج الطبيعي</span>
+                </button>
+            </div>
+
+            <!-- Active Clinic Dynamic Card -->
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-200/90 max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Left Details (7 cols) -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="flex items-center gap-3">
+                            <span id="clinic-icon" class="text-4xl p-3 bg-primary-50 rounded-2xl">🍏</span>
+                            <div>
+                                <span id="clinic-badge" class="text-[11px] font-bold text-primary px-2.5 py-0.5 rounded-full bg-primary-50 border border-primary-100">
+                                    التغذية وعلاج السمنة
+                                </span>
+                                <h3 id="clinic-title" class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
+                                    عيادات التغذية وعلاج السمنة
+                                </h3>
+                            </div>
+                        </div>
+
+                        <p id="clinic-desc" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            حل برمجي ذكي متكامل لأطباء وأخصائيي التغذية يختصر وقت كتابة الدايت من 20 دقيقة إلى ضغطة زر واحدة، مع ربط مباشر ومتابعة المريض.
+                        </p>
+
+                        <!-- Features Check List -->
+                        <div id="clinic-features" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                            <!-- Injected by JS -->
+                        </div>
+
+                        <!-- CTA For This Clinic -->
+                        <div class="pt-4 flex flex-wrap items-center gap-4">
+                            <a id="clinic-whatsapp-btn" href="https://wa.me/201205549415" target="_blank" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md shadow-emerald-600/20 transition">
+                                <span>💬 استفسر عن هذا النظام بالواتساب</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Visual Interactive Card (5 cols) -->
+                    <div class="lg:col-span-5 bg-gradient-to-br from-slate-50 to-primary-50/50 p-6 rounded-2xl border border-slate-200 space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                            <span class="text-xs font-bold text-slate-700" id="preview-widget-title">معاينة حية للميزة</span>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold" data-i18n="lbl_ready">جاهز للعمل</span>
+                        </div>
+                        
+                        <div id="preview-widget-content" class="space-y-3 text-xs">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 3: Deep Dive - Commercial, Gyms & Custom Enterprise -->
+    <section id="commercial-deep" class="py-24 bg-white border-y border-slate-200/70 relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent-dark text-xs font-bold uppercase tracking-wider">
+                    <span data-i18n="comm_deep_badge">القطاعات التجارية والرياضية</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900" data-i18n="comm_deep_title">
+                    برمجيات المحلات، أندية الجيم، والأنظمة المخصصة
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed" data-i18n="comm_deep_sub">
+                    بناء معماري متقدم مصمم للشركات الرياضية، منافذ التجزئة السريعة، وتفصيل الأنظمة البرمجية المستقلة بنسبة 100%.
+                </p>
+            </div>
+
+            <!-- Commercial & Fitness Bento Grid (Spacious, Open & Professional) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
+
+                <!-- 1. Gyms & Fitness ERP (Card 1: 7 Cols) -->
+                <div class="lg:col-span-7 bg-[#F8FAFC] rounded-3xl p-7 sm:p-9 border border-slate-200/90 hover:border-primary/40 hover:shadow-xl transition duration-300 flex flex-col justify-between">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black px-3.5 py-1.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200" data-i18n="bento_gym_badge">
+                                🏋️ أندية الجيم واللياقة البدنية
+                            </span>
+                            <span class="text-xs font-bold text-slate-400">01 / Commercial</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl sm:text-3xl font-black text-slate-900" data-i18n="bento_gym_title">
+                                بوابات دخول ذكية وأتمتة كاملة لاشتراكات الجيم
+                            </h3>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed" data-i18n="bento_gym_desc">
+                                حل تقني متكامل يربط البوابات الإلكترونية (Turnstiles) بمنظومة العضويات، مع روبوت واتساب لتجديد الاشتراكات تلقائياً ومتابعة حصص وعمولات المدربين (PT).
+                            </p>
+                        </div>
+
+                        <!-- Mini Live Turnstile Simulator -->
+                        <div class="bg-slate-900 text-white p-4 sm:p-5 rounded-2xl shadow-inner space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-base shadow-sm">
+                                        ✓
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold text-xs sm:text-sm text-white" data-i18n="bento_gym_sim_user">كابتن زياد إبراهيم</h5>
+                                        <span class="text-[10px] text-emerald-400 font-semibold" data-i18n="bento_gym_sim_sub">عضوية سنوية VIP • كود #9821</span>
+                                    </div>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold border border-emerald-500/30" data-i18n="bento_gym_sim_gate">
+                                    🟢 تم فتح البوابة
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2 text-[10px]">
+                                <div class="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700">
+                                    <span class="text-slate-400 block" data-i18n="bento_gym_sim_days_lbl">الأيام المتبقية:</span>
+                                    <span class="font-bold text-amber-400 text-xs" data-i18n="bento_gym_sim_days_val">متبقي 42 يوم</span>
+                                </div>
+                                <div class="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700">
+                                    <span class="text-slate-400 block" data-i18n="bento_gym_sim_pt_lbl">حصص التدريب (PT):</span>
+                                    <span class="font-bold text-cyan-400 text-xs" data-i18n="bento_gym_sim_pt_val">4 حصص متبقية</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4 Quick Bullets -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200/80">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="bento_gym_f1">بوابات إلكترونية بالـ QR</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200/80">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="bento_gym_f2">تنبيهات التجديد بالواتساب</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200/80">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="bento_gym_f3">حساب عمولات المدربين PT</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200/80">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="bento_gym_f4">كاشير المكملات والسناكس</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <a id="bento-gym-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%86%D8%B8%D8%A7%D9%85%20%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9%20%D8%A3%D9%86%D8%AF%D9%8A%D8%A9%20%D8%A7%D9%84%D8%AC%D9%8A%D9%85%20%D9%88%D8%A8%D9%88%D8%A7%D8%A8%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AF%D8%AE%D9%88%D9%84." target="_blank" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-primary text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition">
+                            <span data-i18n="bento_gym_btn">💬 استفسر عن نظام الجيم بالواتساب</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2. Retail & POS (Card 2: 5 Cols) -->
+                <div class="lg:col-span-5 bg-[#F8FAFC] rounded-3xl p-7 sm:p-9 border border-slate-200/90 hover:border-emerald-500/40 hover:shadow-xl transition duration-300 flex flex-col justify-between">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200" data-i18n="bento_pos_badge">
+                                🛍️ كاشير المحلات ونقاط البيع
+                            </span>
+                            <span class="text-xs font-bold text-slate-400">02 / Commercial</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-black text-slate-900" data-i18n="bento_pos_title">
+                                كاشير فائق السرعة يعمل أوفلاين 100%
+                            </h3>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed" data-i18n="bento_pos_desc">
+                                أداء فوري لا يتوقف عند انقطاع الإنترنت، مع إدارة متقدمة لمصفوفة المقاسات والألوان وتنبيهات النواقص وتزامن الفروع.
+                            </p>
+                        </div>
+
+                        <!-- Mini Live POS Terminal Simulator -->
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2.5 text-xs">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                                <span class="font-bold text-slate-800" data-i18n="bento_pos_sim_item">قميص قطني كاجوال (L / أزرق)</span>
+                                <span class="text-emerald-700 font-extrabold">350 ج.م</span>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] text-slate-500">
+                                <span data-i18n="bento_pos_sim_scan">الباركود: #8901245 |||||</span>
+                                <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold" data-i18n="bento_pos_sim_offline">أوفلاين 100% ✓</span>
+                            </div>
+                            <div class="p-2 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-[11px]">
+                                <span class="text-slate-600" data-i18n="bento_pos_sim_matrix">المتبقي بالمخزن المركزي:</span>
+                                <span class="font-bold text-primary">24 قطعة (3 فروع)</span>
+                            </div>
+                        </div>
+
+                        <!-- 4 Quick Bullets -->
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200/80">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="bento_pos_f1">إتمام البيع في جزء من الثانية مع الباركود</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200/80">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="bento_pos_f2">مصفوفة المقاسات والألوان للملابس</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200/80">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="bento_pos_f3">تنبيهات النواقص وتواريخ الصلاحية</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200/80">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="bento_pos_f4">طباعة فواتير وإيصالات حرارية فورية</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <a id="bento-pos-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%86%D8%B8%D8%A7%D9%85%20%D9%83%D8%A7%D8%B4%D9%8A%D8%B1%20%D8%A7%D9%84%D9%85%D8%AD%D9%84%D8%A7%D8%AA%20%D9%88%D9%86%D9%82%D8%A7%D8%B7%20%D8%A7%D9%84%D8%A8%D9%8A%D8%B9." target="_blank" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition">
+                            <span data-i18n="bento_pos_btn">💬 استفسر عن كاشير المحلات</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3. 100% Custom Tailored Enterprise (Card 3: 12 Cols Full Width Banner) -->
+                <div class="lg:col-span-12 bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 text-white rounded-3xl p-8 sm:p-10 border border-slate-800 shadow-2xl relative overflow-hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                        
+                        <div class="lg:col-span-7 space-y-4">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-bold">
+                                <span>⚙️</span>
+                                <span data-i18n="bento_custom_badge">برمجة وتفصيل أنظمة خاصة 100%</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-3xl font-black leading-snug" data-i18n="bento_custom_title">
+                                فكرة مشروعك فريدة؟ نبني لها نظاماً مؤسسياً مخصصاً بالكامل
+                            </h3>
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed" data-i18n="bento_custom_desc">
+                                لا تجبر عملك على التقيد بقوالب جاهزة لا تناسب نشاطك. نقوم بهندسة وبناء برمجياتك الخاصة من الصفر بتقنية Flutter وقواعد بيانات سحابية أو محلية، مع ربط كامل مع أي API، بوابات الدفع، وشركات الشحن.
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                                <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/80">
+                                    <span class="text-emerald-400 font-bold block text-xs">✓ كود مخصص 100%</span>
+                                    <span class="text-[11px] text-slate-400" data-i18n="bento_custom_f1">ملكية كاملة بدون اشتراكات</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/80">
+                                    <span class="text-cyan-400 font-bold block text-xs">✓ ربط APIs خارجي</span>
+                                    <span class="text-[11px] text-slate-400" data-i18n="bento_custom_f2">بوابات دفع وشحن ومستودعات</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/80">
+                                    <span class="text-primary-light font-bold block text-xs">✓ متعدد المنصات</span>
+                                    <span class="text-[11px] text-slate-400" data-i18n="bento_custom_f3">كمبيوتر وموبايل وشاشات لمس</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-5 bg-slate-800/60 p-6 rounded-2xl border border-slate-700/70 space-y-4">
+                            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between" data-i18n="bento_custom_pipe_title">
+                                <span>مخطط الربط المعماري للنظام:</span>
+                                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                            </h4>
+                            
+                            <div class="space-y-2.5 text-xs">
+                                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700 flex items-center justify-between">
+                                    <span class="text-slate-300">📱 تطبيق الموبايل والتابلت (Flutter)</span>
+                                    <span class="text-emerald-400 font-bold text-[10px]">جاهز ✓</span>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700 flex items-center justify-between">
+                                    <span class="text-slate-300">☁️ الخادم السحابي وقواعد البيانات الآمنة</span>
+                                    <span class="text-cyan-400 font-bold text-[10px]">متصل 100%</span>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700 flex items-center justify-between">
+                                    <span class="text-slate-300">💬 روبوت الرد والربط بالواتساب</span>
+                                    <span class="text-emerald-400 font-bold text-[10px]">تلقائي ⚡</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-2">
+                                <a id="bento-custom-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D9%84%D8%AF%D9%8A%20%D9%81%D9%83%D8%B1%D8%A9%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D9%88%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%85%D9%86%D8%A7%D9%82%D8%B4%D8%A9%20%D8%AA%D8%B7%D9%88%D9%8A%D8%B1%20%D9%86%D8%B8%D8%A7%D9%85%20%D9%85%D8%AE%D8%B5%D8%B5%20%D9%84%D9%87%D8%A7." target="_blank" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition">
+                                    <span data-i18n="bento_custom_btn">💬 احجز جلسة استشارة ومناقشة لمشروعك</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 4: Core System Features (The 4 Pillars) -->
+    <section id="core-features" class="py-20 bg-[#F8FAFC] border-y border-slate-200/70">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-primary-50 text-primary text-xs font-bold uppercase tracking-wider">
+                    <span data-i18n="pillars_badge">المعايير الهندسية للأنظمة</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900" data-i18n="pillars_title">
+                    الميزات الأساسية والعملية لأنظمة Entrustic
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed" data-i18n="pillars_subtitle">
+                    تم بناء أنظمة Entrustic من الألف إلى الياء لتجاوز العقبات التقنية وضمان استمرارية عملك بأعلى كفاءة وأمان.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Pillar 1: WhatsApp -->
+                <div class="bg-white rounded-3xl p-7 border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition">
+                        💬
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="p1_title">الواتساب التلقائي</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed" data-i18n="p1_desc">
+                        إرسال تأكيدات الحجز، الروشتات الرقمية، التذكير بمواعيد الجلسات، وتنبيهات الاشتراكات تلقائياً بدون تدخل بشري أو مصاريف إضافية.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 flex items-center gap-1.5 text-xs font-bold text-emerald-600">
+                        <span data-i18n="p1_foot">إشعارات آلية على مدار الساعة</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                </div>
+
+                <!-- Pillar 2: Finance & Analytics -->
+                <div class="bg-white rounded-3xl p-7 border border-slate-200/80 hover:border-primary/50 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-primary-50 text-primary flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition">
+                        📊
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="p2_title">التقارير والماليات اللحظية</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed" data-i18n="p2_desc">
+                        تقارير الأرباح والمصروفات اللحظية، وتدفقات السيولة اليومية، ومتابعة خزائن الكاش والفيزا مباشرة على موبايل صاحب العمل.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 flex items-center gap-1.5 text-xs font-bold text-primary">
+                        <span data-i18n="p2_foot">لوحة متابعة فورية للإدارة</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                </div>
+
+                <!-- Pillar 3: Offline-First Sync -->
+                <div class="bg-white rounded-3xl p-7 border border-slate-200/80 hover:border-amber-500/50 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition">
+                        ⚡
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="p3_title">العمل بدون إنترنت (أوفلاين)</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed" data-i18n="p3_desc">
+                        حفظ البيانات على جهاز الكمبيوتر أو التابلت محلياً واستمرار العمل حتى لو انقطع النت، وتزامن تلقائي مع السحابة فور العودة.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 flex items-center gap-1.5 text-xs font-bold text-amber-700">
+                        <span data-i18n="p3_foot">استمرارية تامة للعمل</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                </div>
+
+                <!-- Pillar 4: High Security & Privacy -->
+                <div class="bg-white rounded-3xl p-7 border border-slate-200/80 hover:border-cyan-500/50 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition">
+                        🛡️
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="p4_title">الأمان والتشفير العالي</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed" data-i18n="p4_desc">
+                        تشفير كامل لملفات المرضى والحسابات، مع إدارة صلاحيات دقيقة للموظفين والمساعدين، ونسخ احتياطي دوري سحابي ومحلي.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 flex items-center gap-1.5 text-xs font-bold text-cyan-700">
+                        <span data-i18n="p4_foot">حماية وخصوصية مشددة</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: WhatsApp Simulator -->
+    <section id="whatsapp-demo" class="py-24 bg-white relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-14 max-w-6xl mx-auto">
+                
+                <!-- Text Details -->
+                <div class="w-full lg:w-1/2 space-y-6 text-center lg:text-start">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold">
+                        <span>💬</span>
+                        <span data-i18n="wa_pill">الربط التلقائي عبر الواتساب</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
+                        <span data-i18n="wa_title_1">تواصل فوري وآلي مع عملائك</span> <br>
+                        <span class="text-emerald-600" data-i18n="wa_title_2">يرفع التزام العملاء بنسبة 45%</span>
+                    </h2>
+
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed" data-i18n="wa_desc">
+                        لا داعي لتضييع وقت موظفيك في المكالمات الهاتفية المتكررة. نظام Entrustic يرسل الروشتة فوراً، يُذكر المريض بموعد جلسته، ويرسل خطة العلاج والدايت وتنبيهات تجديد الجيم بنقرة واحدة عبر تطبيق الواتساب الرسمي.
+                    </p>
+
+                    <div class="space-y-3.5 pt-2 text-xs sm:text-sm text-slate-700 font-semibold">
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-xs">
+                            <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">1</span>
+                            <span data-i18n="wa_item_1">إرسال تأكيد الحجز وموقع العيادة أو المتجر فور التسجيل</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-xs">
+                            <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">2</span>
+                            <span data-i18n="wa_item_2">تذكير تلقائي قبل الموعد أو انتهاء الاشتراك مع خيارات التجديد</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-xs">
+                            <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">3</span>
+                            <span data-i18n="wa_item_3">إرسال الروشتات وملفات الـ PDF والفواتير بنقرة زر واحدة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live WhatsApp Phone Mockup -->
+                <div class="w-full lg:w-1/2 flex justify-center">
+                    <div class="w-[310px] sm:w-[340px] bg-slate-900 p-3.5 rounded-[42px] shadow-2xl border-4 border-slate-700 relative">
+                        <!-- Phone Screen -->
+                        <div class="w-full bg-[#E5DDD5] rounded-[34px] overflow-hidden flex flex-col h-[520px] relative text-xs">
+                            
+                            <!-- WhatsApp Header with Entrustic Logo Icon -->
+                            <div class="bg-[#075E54] text-white p-3 pt-6 flex items-center gap-2.5 shadow-md">
+                                <div class="w-8 h-8 rounded-full bg-white p-1 flex items-center justify-center shadow-xs overflow-hidden">
+                                    <img src="logo.png" alt="Entrustic" class="w-full h-full object-contain">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-xs leading-none" data-i18n="wa_bot_name">مساعد Entrustic الذكي</h4>
+                                    <span class="text-[9px] opacity-80" data-i18n="wa_bot_status">حساب رسمي معتمد • متصل الآن</span>
+                                </div>
+                            </div>
+
+                            <!-- Chat Messages Area -->
+                            <div class="p-3 space-y-3 flex-1 overflow-y-auto">
+                                
+                                <!-- Bot Greeting -->
+                                <div class="bg-white p-2.5 rounded-xl rounded-tr-none shadow-xs max-w-[85%] space-y-1">
+                                    <p class="font-bold text-slate-800" data-i18n="wa_msg1_title">أهلاً بك يا سارة 👋</p>
+                                    <p class="text-[11px] text-slate-600" data-i18n="wa_msg1_body">تم تأكيد حجز موعدك ليوم الأحد الساعة 6:00 مساءً مع د. محمد سعيد.</p>
+                                    <span class="text-[8px] text-slate-400 block text-left">10:30 ص ✓✓</span>
+                                </div>
+
+                                <!-- Bot Reminder with Diet PDF -->
+                                <div class="bg-white p-2.5 rounded-xl rounded-tr-none shadow-xs max-w-[85%] space-y-1.5">
+                                    <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-lg border border-slate-200">
+                                        <span class="text-xl">📄</span>
+                                        <div>
+                                            <p class="font-bold text-[10px] text-slate-800">Sara_Diet_Plan.pdf</p>
+                                            <span class="text-[9px] text-emerald-600 font-semibold">1,850 Kcal • Macros Ready</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-[10px] text-slate-600" data-i18n="wa_msg2_body">تم إرسال الخطة الغذائية بناءً على قياس InBody الأخير.</p>
+                                    <span class="text-[8px] text-slate-400 block text-left">07:15 م ✓✓</span>
+                                </div>
+
+                                <!-- Gym Reminder Example -->
+                                <div class="bg-white p-2.5 rounded-xl rounded-tr-none shadow-xs max-w-[85%] space-y-1.5">
+                                    <p class="text-[10px] text-slate-700" data-i18n="wa_msg3_body">تنبيه: متبقي 3 أيام على انتهاء اشتراكك. جدد الآن واحصل على حصتين تدريب مجاناً!</p>
+                                    <div class="flex gap-1.5">
+                                        <span class="px-2 py-1 bg-emerald-50 text-emerald-700 font-bold text-[9px] rounded-md border border-emerald-200" data-i18n="wa_msg3_btn">
+                                            تجديد الاشتراك بالواتساب ✓
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- User Confirmation Bubble -->
+                                <div class="bg-[#DCF8C6] p-2.5 rounded-xl rounded-tl-none shadow-xs max-w-[75%] mr-auto space-y-1">
+                                    <p class="text-[11px] text-slate-800 font-medium" data-i18n="wa_user_reply">سأقوم بالتحويل والتجديد غداً أثناء الحصة. شكراً جزيلاً!</p>
+                                    <span class="text-[8px] text-slate-400 block text-right">07:20 م ✓✓</span>
+                                </div>
+
+                            </div>
+
+                            <!-- WhatsApp Input Mock -->
+                            <div class="p-2 bg-slate-100 flex items-center gap-2 border-t border-slate-200">
+                                <div class="flex-1 bg-white py-1.5 px-3 rounded-full text-slate-400 text-[10px]" data-i18n="wa_input_placeholder">
+                                    الرد التلقائي مفعل عبر Entrustic...
+                                </div>
+                                <div class="w-7 h-7 rounded-full bg-[#128C7E] text-white flex items-center justify-center text-xs">
+                                    🎤
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: Multi-Platform Flutter Architecture -->
+    <section class="py-20 bg-[#F8FAFC] border-b border-slate-200/70">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl mx-auto space-y-8">
+            <div class="space-y-3">
+                <span class="text-xs font-bold text-primary px-3.5 py-1 rounded-full bg-primary-50 border border-primary-100" data-i18n="platforms_badge">
+                    بيئة تشغيل موحدة لكافة أجهزتك
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900" data-i18n="platforms_title">
+                    نظام واحد يعمل على شاشات الكمبيوتر، الموبايل، والويب
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed" data-i18n="platforms_desc">
+                    مبني بتقنية Flutter المتطورة، مما يوفر لك سرعة استجابة فائقة للديسكتوب، وشاشات لمس مميزة للتابلت، وتطبيق موبايل لمتابعة عملك لحظة بلحظة من أي مكان.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 text-center hover:shadow-md transition">
+                    <div class="text-3xl mb-2">💻</div>
+                    <h4 class="font-bold text-slate-800 text-sm">Windows & Mac</h4>
+                    <span class="text-[11px] text-slate-500" data-i18n="plat_desktop">للإدارة ومكاتب الاستقبال</span>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 text-center hover:shadow-md transition">
+                    <div class="text-3xl mb-2">📱</div>
+                    <h4 class="font-bold text-slate-800 text-sm">iOS & Android</h4>
+                    <span class="text-[11px] text-slate-500" data-i18n="plat_mobile">لمتابعة المالك والعملاء</span>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 text-center hover:shadow-md transition">
+                    <div class="text-3xl mb-2">📋</div>
+                    <h4 class="font-bold text-slate-800 text-sm">iPad & Tablet</h4>
+                    <span class="text-[11px] text-slate-500" data-i18n="plat_tablet">للإقرارات وشاشات اللمس</span>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 text-center hover:shadow-md transition">
+                    <div class="text-3xl mb-2">🌐</div>
+                    <h4 class="font-bold text-slate-800 text-sm">Web & Cloud</h4>
+                    <span class="text-[11px] text-slate-500" data-i18n="plat_web">للمواقع والمزامنة السحابية</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: Interactive Packages & Bespoke Engineering Configurator -->
+    <section id="configurator" class="py-24 bg-gradient-to-b from-white to-primary-50/40 relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-primary-50 text-primary text-xs font-bold uppercase tracking-wider">
+                    <span data-i18n="config_badge">طلب عرض سعر واختيار الباقة</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900" data-i18n="config_title">
+                    اختر باقتك الجاهزة أو فصّل نظاماً مخصصاً لعيادتك ومشروعك
+                </h2>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed" data-i18n="config_sub">
+                    سواء كنت تفضل البدء فوراً باختيار باقة متكاملة، أو تخصيص ميزات محددة، أو التحدث مباشرة مع مهندس برمجيات لتفصيل نظام فريد من الصفر.
+                </p>
+            </div>
+
+            <!-- Mode Selector Switch: Ready Packages vs Custom Builder -->
+            <div class="flex items-center justify-center gap-3 mb-10">
+                <button onclick="switchConfigMode('packages')" id="btn-mode-packages" class="px-6 py-3 rounded-2xl font-black text-xs sm:text-sm transition flex items-center gap-2 bg-primary text-white shadow-md shadow-primary/20">
+                    <span>📦</span>
+                    <span data-i18n="mode_packages">الباقات والحلول الجاهزة (1، 2، 3)</span>
+                </button>
+                <button onclick="switchConfigMode('custom')" id="btn-mode-custom" class="px-6 py-3 rounded-2xl font-black text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+                    <span>⚙️</span>
+                    <span data-i18n="mode_custom">حاسبة تفصيل الميزات بنفسك</span>
+                </button>
+            </div>
+
+            <!-- VIEW 1: Ready Standard Packages (1, 2, 3) -->
+            <div id="view-packages" class="grid grid-cols-1 lg:grid-cols-3 gap-7 items-stretch mb-12">
+                
+                <!-- Package 1: Essential Starter -->
+                <div class="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between">
+                    <div class="space-y-5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200" data-i18n="pkg1_badge">
+                                الباقة 1: الأساسية
+                            </span>
+                            <span class="text-xs font-bold text-slate-400">Starter</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-slate-900" data-i18n="pkg1_title">إدارة الأعمال والعيادات</h3>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed" data-i18n="pkg1_desc">
+                                مثالية للعيادات والمحلات التي تبدأ رحلة تنظيم عملها رقمياً بنظام خفيف ومستقر بدون تعقيد.
+                            </p>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-100 space-y-2.5 text-xs">
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg1_f1">سجلات المرضى / العملاء والكشوفات</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg1_f2">العمل أوفلاين 100% بدون نت على الكمبيوتر</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg1_f3">فواتير سريعة وتقرير الخزينة اليومي</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg1_f4">تدريب الفريق ودعم فني مستمر</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-7">
+                        <a id="pkg1-wa-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A8%D8%A7%D9%82%D8%A9%20(1%3A%20%D8%A7%D9%84%D8%A3%D8%B3%D8%A7%D8%B3%D9%8A%D8%A9)%20%D9%84%D8%B9%D9%8A%D8%A7%D8%AF%D8%AA%D9%8A%20%D8%A3%D9%88%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%D9%8A." target="_blank" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-primary text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-sm">
+                            <span data-i18n="pkg1_btn">💬 اطلب الباقة الأساسية بالواتساب</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Package 2: Pro Automation (Featured) -->
+                <div class="bg-white rounded-3xl p-7 border-2 border-primary shadow-xl hover:shadow-2xl transition duration-300 flex flex-col justify-between relative transform lg:-translate-y-2">
+                    <div class="absolute -top-3.5 right-1/2 translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-primary to-accent text-white text-[11px] font-black shadow-md">
+                        <span data-i18n="pkg2_featured">⭐ الأكثر طلباً للعيادات والمراكز</span>
+                    </div>
+
+                    <div class="space-y-5 mt-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20" data-i18n="pkg2_badge">
+                                الباقة 2: الاحترافية الذكية
+                            </span>
+                            <span class="text-xs font-bold text-primary">Pro Automation</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-slate-900" data-i18n="pkg2_title">الأتمتة وروبوت الواتساب</h3>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed" data-i18n="pkg2_desc">
+                                النظام الشامل المفضل للأطباء وأصحاب الأعمال: تواصل آلي كامل مع العميل ومتابعة مالية لحظية.
+                            </p>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-100 space-y-2.5 text-xs">
+                            <div class="flex items-center gap-2">
+                                <span class="text-primary font-bold">✓</span>
+                                <span class="text-slate-800 font-bold" data-i18n="pkg2_f1">كافة مميزات الباقة الأساسية</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg2_f2">ربط الواتساب الرسمي (روشتات وتأكيد حجز تلقائي)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg2_f3">تنبيهات تذكير بالمواعيد واشتراكات الجيم آلياً</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg2_f4">تقارير مالية ولحظية على موبايل صاحب العمل</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg2_f5">مزامنة سحابية دورية مع حفظ محلي مشفر</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-7">
+                        <a id="pkg2-wa-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A8%D8%A7%D9%82%D8%A9%20(2%3A%20%D8%A7%D9%84%D8%A7%D8%AD%D8%AA%D8%B1%D8%A7%D9%81%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D9%88%D8%A7%D8%AA%D8%B3%D8%A7%D8%A8)%20%D9%84%D8%B9%D9%8A%D8%A7%D8%AF%D8%AA%D9%8A%20%D8%A3%D9%88%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%D9%8A." target="_blank" class="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-dark text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-lg shadow-primary/25">
+                            <span data-i18n="pkg2_btn">💬 اطلب باقة الأتمتة والواتساب</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Package 3: Complete Ecosystem -->
+                <div class="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between">
+                    <div class="space-y-5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black px-3 py-1 rounded-full bg-cyan-100 text-cyan-800 border border-cyan-200" data-i18n="pkg3_badge">
+                                الباقة 3: المنظومة الشاملة
+                            </span>
+                            <span class="text-xs font-bold text-cyan-700">All-in-One</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-slate-900" data-i18n="pkg3_title">البرنامج + موقع ويب مخصص</h3>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed" data-i18n="pkg3_desc">
+                                حضور رقمي كامل: نظام إداري داخلي مترابط مع موقع إلكتروني باسمك وبوابة حجز وتطبيق عملاء.
+                            </p>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-100 space-y-2.5 text-xs">
+                            <div class="flex items-center gap-2">
+                                <span class="text-cyan-600 font-bold">✓</span>
+                                <span class="text-slate-800 font-bold" data-i18n="pkg3_f1">كافة ميزات باقة الأتمتة والواتساب</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg3_f2">تصميم وبرمجة موقع ويب تعريفي كامل لعيادتك</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg3_f3">بوابة حجز وكشوفات تفاعلية أونلاين</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg3_f4">ربط فروع متعددة ومخزن مركزي</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-bold">✓</span>
+                                <span class="text-slate-700 font-semibold" data-i18n="pkg3_f5">دومين واستضافة سحابية فائقة السرعة مجاناً</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-7">
+                        <a id="pkg3-wa-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A8%D8%A7%D9%82%D8%A9%20(3%3A%20%D8%A7%D9%84%D9%85%D9%86%D8%B8%D9%88%D9%85%D8%A9%20%D8%A7%D9%84%D8%B4%D8%A7%D9%85%D9%84%D8%A9%20%D9%88%D9%85%D9%88%D9%82%D8%B9%20%D8%A7%D9%84%D9%88%D9%8A%D8%A8)%20%D9%84%D8%B9%D9%8A%D8%A7%D8%AF%D8%AA%D9%8A%20%D8%A3%D9%88%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%D9%8A." target="_blank" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-cyan-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-sm">
+                            <span data-i18n="pkg3_btn">💬 اطلب المنظومة الشاملة بالواتساب</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIEW 2: Custom Interactive Feature Builder (Hidden by default, toggled via JS) -->
+            <div id="view-custom" class="hidden bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-200/90 space-y-7 mb-12">
+                <div class="border-b border-slate-100 pb-4">
+                    <h3 class="text-xl font-black text-slate-900" data-i18n="custom_head_title">حاسبة المواصفات والميزات المفصلة</h3>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="custom_head_sub">اختر نشاطك والميزات المحددة التي تحتاجها في نظامك لتوليد رسالة تفصيلية فورية.</p>
+                </div>
+
+                <!-- Sector Selector -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-2" data-i18n="lbl_select_sector">
+                        اختر نوع الخدمة أو النشاط:
+                    </label>
+                    <select id="config-sector" onchange="updateConfigMessage()" class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm font-semibold rounded-xl p-3.5 focus:outline-none focus:border-primary">
+                        <!-- Populated dynamically via renderSectorOptions() based on selected language -->
+                    </select>
+                </div>
+
+                <!-- 8 Granular Add-on Checkboxes -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-3" data-i18n="lbl_addons">
+                        حدد الميزات والإضافات المطلوبة (اختر ما يناسبك):
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                            <input type="checkbox" id="chk-wa" checked onchange="updateConfigMessage()" class="w-4 h-4 rounded text-primary focus:ring-0">
+                            <span class="font-medium text-slate-800" data-i18n="chk_1">ربط الواتساب الآلي للإشعارات والمواعيد 💬</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                            <input type="checkbox" id="chk-offline" checked onchange="updateConfigMessage()" class="w-4 h-4 rounded text-primary focus:ring-0">
+                            <span class="font-medium text-slate-800" data-i18n="chk_2">العمل بدون إنترنت (أوفلاين 100%) ⚡</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                            <input type="checkbox" id="chk-patient-app" onchange="updateConfigMessage()" class="w-4 h-4 rounded text-primary focus:ring-0">
+                            <span class="font-medium text-slate-800" data-i18n="chk_3">موقع ويب تعريفي أو صفحة هبوط إعلانية 🌐</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                            <input type="checkbox" id="chk-mobile-app" onchange="updateConfigMessage()" class="w-4 h-4 rounded text-primary focus:ring-0">
+                            <span class="font-medium text-slate-800" data-i18n="chk_app">تطبيق موبايل خاص للمرضى أو العملاء 📱</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                            <input type="checkbox" id="chk-multi-branches" onchange="updateConfigMessage()" class="w-4 h-4 rounded text-primary focus:ring-0">
+                            <span class="font-medium text-slate-800" data-i18n="chk_4">ربط فروع متعددة ومخزن مركزي 🏢</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                            <input type="checkbox" id="chk-payments" onchange="updateConfigMessage()" class="w-4 h-4 rounded text-primary focus:ring-0">
+                            <span class="font-medium text-slate-800" data-i18n="chk_payments">بوابات دفع إلكتروني وفواتير حرارية 💳</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                            <input type="checkbox" id="chk-devices" onchange="updateConfigMessage()" class="w-4 h-4 rounded text-primary focus:ring-0">
+                            <span class="font-medium text-slate-800" data-i18n="chk_devices">ربط أجهزة المعامل أو البوابات الذكية 🔬</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                            <input type="checkbox" id="chk-cloud" onchange="updateConfigMessage()" class="w-4 h-4 rounded text-primary focus:ring-0">
+                            <span class="font-medium text-slate-800" data-i18n="chk_cloud">خادم سحابي مشفر مع نسخ احتياطي دوري 🛡️</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Custom WhatsApp Trigger -->
+                <div class="pt-3">
+                    <a id="custom-wa-submit" href="https://wa.me/201205549415" target="_blank" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-600/20 hover:scale-[1.01] transition">
+                        <span data-i18n="config_submit_btn">💬 إرسال الطلب ومناقشته عبر الواتساب</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- VIP CUSTOM ENGINEERING BANNER: Always Visible -->
+            <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 text-white rounded-3xl p-8 sm:p-10 border border-slate-800 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div class="space-y-3 text-center lg:text-start max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-black">
+                        <span>💎</span>
+                        <span data-i18n="vip_badge">تفصيل خاص من الصفر (100% Bespoke)</span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-black" data-i18n="vip_title">
+                        عايز تتكلم مع مهندس يفصل لك حاجة مخصوص لعيادتك أو مشروعك؟
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed" data-i18n="vip_desc">
+                        إذا كانت فكرة مشروعك غير تقليدية ولا تلائمها الباقات أو الخيارات الجاهزة، يمكنك التحدث مباشرة مع كبير مهندسي Entrustic لنستمع لاحتياجاتك ونبني لك نظاماً وكوداً مخصصاً بالكامل لفكرتك.
+                    </p>
+                </div>
+
+                <a id="vip-wa-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AA%D8%AD%D8%AF%D8%AB%20%D9%85%D8%A8%D8%A7%D8%B4%D8%B1%D8%A9%20%D9%85%D8%B9%20%D9%85%D9%87%D9%86%D8%AF%D8%B3%20%D8%A7%D9%84%D8%A8%D8%B1%D9%85%D8%AC%D9%8A%D8%A7%D8%AA%20%D9%84%D9%85%D9%86%D8%A7%D9%82%D8%B4%D8%A9%20%D8%AA%D9%81%D8%B5%D9%8A%D9%84%20%D9%86%D8%B8%D8%A7%D9%85%20%D9%85%D8%AE%D8%B5%D8%B5%20%D8%A8%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84%20%D9%84%D9%85%D8%B4%D8%B1%D9%88%D8%B9%D9%8A%20%D8%A7%D9%84%D8%AE%D8%A7%D8%B5." target="_blank" class="w-full lg:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-400 via-cyan-500 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 font-black text-sm flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/25 hover:scale-105 transition shrink-0">
+                    <span>📞</span>
+                    <span data-i18n="vip_btn">تحدث مباشرة مع مهندس النظام</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer with Brand Logo -->
+    <footer class="bg-slate-950 text-slate-400 text-xs py-14 border-t border-slate-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-slate-800/80 pb-10">
+                <div class="flex items-center">
+                    <img src="entrustic-logo.png?v=3" alt="Entrustic" class="h-14 w-auto object-contain bg-white/95 px-3.5 py-1.5 rounded-2xl shadow-md">
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-6 font-bold text-slate-400 text-xs">
+                    <a href="#overview" class="hover:text-white transition" data-i18n="nav_vision">الرؤية</a>
+                    <a href="#websites" class="hover:text-white transition" data-i18n="nav_websites">تصميم المواقع</a>
+                    <a href="#specialties" class="hover:text-white transition" data-i18n="nav_clinics">العيادات الطبية</a>
+                    <a href="#commercial-deep" class="hover:text-white transition" data-i18n="nav_commercial">المحلات والجيم</a>
+                    <a href="#core-features" class="hover:text-white transition" data-i18n="nav_features">الميزات الذكية</a>
+                    <a id="footer-support-btn" href="https://wa.me/201205549415" target="_blank" class="text-emerald-400 hover:text-emerald-300 transition" data-i18n="foot_support">الدعم الفني والواتساب</a>
+                </div>
+            </div>
+
+            <div class="pt-8 text-center text-slate-500 text-[11px]">
+                <p data-i18n="foot_copy">&copy; 2026 Entrustic. جميع الحقوق محفوظة. Trust The Code, Own The Control.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Quick WhatsApp Button -->
+    <a id="floating-wa-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20Entrustic." target="_blank" class="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full bg-whatsapp hover:bg-whatsappDark text-white shadow-2xl flex items-center justify-center text-3xl hover:scale-110 transition-transform duration-300">
+        💬
+    </a>
+
+    <!-- Interactive Logic Script -->
+    <script>
+        // Multi-language translations
+        const i18nData = {
+            ar: {
+                nav_vision: "الرؤية والخدمات",
+                nav_websites: "تصميم المواقع",
+                nav_clinics: "العيادات الطبية",
+                nav_commercial: "المحلات والجيم",
+                nav_features: "الميزات الذكية",
+                nav_pricing: "اطلب مشروعك",
+                btn_consult: "تواصل معنا",
+                hero_badge: "✨ شريكك البرمجي لتطوير المواقع والأنظمة الذكية",
+                hero_title_1: "نصمم موقعك ونظامك البرمجي",
+                hero_title_2: "بأعلى دقة، أسرع أداء، وبدون تعقيد.",
+                hero_desc: "في Entrustic نبني لعملك كل ما تحتاجه رقمياً: من المواقع وصفحات الهبوط التسويقية الجذابة، إلى برمجيات إدارة العيادات والمحلات وأندية الجيم المبنية بتقنية Flutter التي تعمل بدون إنترنت مع ربط تلقائي فوري بالواتساب والسحابة.",
+                hero_cta_web: "استكشف تصميم المواقع",
+                hero_cta_software: "أنظمة العيادات والشركات",
+                badge_websites: "مواقع ويب سريعة وجذابة",
+                badge_offline: "برامج تعمل بدون إنترنت",
+                badge_whatsapp: "ربط الواتساب الآلي",
+                mockup_top_status: "منظومة Entrustic (الوضع النشط 🟢)",
+                mockup_sync: "مزامنة سحابية فورية",
+                mock_web_visits: "زيارات الموقع",
+                mock_val_speed: "سريع جداً",
+                mock_wa_sent: "رسائل الواتساب",
+                mock_val_wa: "تلقائية 100%",
+                mock_offline_status: "العمل بدون نت",
+                mock_val_offline: "مستمر بلا توقف",
+                mock_item_web: "موقع إلكتروني جديد: تم إطلاق صفحة الهبوط",
+                mock_item_web_sub: "متجاوب مع الهواتف • جاهز لمحركات البحث (SEO)",
+                mock_status_live: "منشور أونلاين ✓",
+                mock_item_clinic: "عيادة د. محمد سعيد - مركز علاج طبيعي",
+                mock_item_clinic_sub: "خطة التأهيل ومواعيد الجلسات مؤكدة بالواتساب",
+                mock_status_done: "مكتمل ✓",
+                mock_wa_bubble_head: "إشعار واتساب فوري:",
+                mock_wa_bubble_sub: "عميل جديد قام بحجز استشارة عبر موقعك",
+                val_1_title: "مواقع وبرامج مخصصة 100%",
+                val_1_desc: "نبني كل شاشة وسطر كود خصيصاً لفكرتك دون قوالب جاهزة",
+                val_2_title: "تعمل بدون إنترنت (أوفلاين)",
+                val_2_desc: "برامج لا تتوقف أبداً عند انقطاع الشبكة مع مزامنة فورية",
+                val_3_title: "أتمتة ذكية عبر الواتساب",
+                val_3_desc: "إرسال الفواتير، التقارير، وتأكيدات الحجز تلقائياً لعملائك",
+                val_4_title: "تواصل ودعم مباشر",
+                val_4_desc: "معك خطوة بخطوة من الفكرة والتصميم حتى الإطلاق والتشغيل",
+                web_badge: "تصميم وتطوير المواقع الإلكترونية",
+                web_sec_title: "نصمم لك موقع ويب احترافي يعكس هوية عملك ويجلب العملاء",
+                web_sec_sub: "لا نكتفي ببرمجة الأنظمة الإدارية، بل نصمم ونبني مواقع إلكترونية متطورة وصفحات هبوط تسويقية تمنح مشروعك واجهة رقمية مشرفة تزيد مبيعاتك وتظهر نشاطك بأفضل صورة.",
+                web_cat1_title: "مواقع الشركات والمؤسسات",
+                web_cat1_desc: "موقع تعريفي متكامل يعرض خدماتك، سابقة أعمالك، وطرق التواصل بفخامة وسرعة عالية تعزز ثقة عملائك.",
+                web_cat1_f1: "تصميم فريد وعصري خاص بهوية شركتك",
+                web_cat1_f2: "دعم كامل للغتين (العربية والإنجليزية)",
+                web_cat1_f3: "تهيئة كاملة لمحركات البحث (SEO) للظهور في جوجل",
+                web_cat1_f4: "متجاوب بنسبة 100% مع كافة شاشات الهواتف والكمبيوتر",
+                web_cat1_btn: "اطلب موقعك التعريفي",
+                web_cat2_title: "صفحات الهبوط التسويقية",
+                web_cat2_desc: "صفحات هبوط مصممة خصيصاً للحملات الإعلانية على فيسبوك وتيك توك وجوجل، تركز على مضاعفة التحويلات وطلبات الشراء.",
+                web_cat2_f1: "سرعة تحميل فائقة لمنع خروج الزائر من الإعلان",
+                web_cat2_f2: "أزرار حجز وتواصل مباشر وفوري عبر الواتساب",
+                web_cat2_f3: "ربط بيكسل الإعلانات (Meta Pixel & TikTok Pixel)",
+                web_cat2_f4: "نماذج تسجيل سريعة وإشعارات لحظية على موبايلك",
+                web_cat2_btn: "اطلب صفحة هبوط لإعلاناتك",
+                web_cat3_title: "البوابات والمتاجر التفاعلية",
+                web_cat3_desc: "تطبيقات ويب متقدمة تتيح لعملائك حجز المواعيد، متابعة طلباتهم، والدفع الإلكتروني المباشر من خلال المتصفح.",
+                web_cat3_f1: "نظام حجز مواعيد وكشوفات تفاعلي أونلاين",
+                web_cat3_f2: "ربط بوابات الدفع الإلكتروني (فيزا، فوري، ميزة)",
+                web_cat3_f3: "بوابة دخول آمنة للمستخدمين والعملاء",
+                web_cat3_f4: "ربط مباشر بقاعدة بيانات برامجك الداخلية",
+                web_cat3_btn: "اطلب منصة أو بوابة ويب",
+                web_guarantee_title: "استضافة سحابية فائقة السرعة + شهادة أمان SSL مجاناً",
+                web_guarantee_sub: "نضمن لموقعك العمل على مدار الساعة بأعلى درجات الأمان والسرعة والاستقرار.",
+                web_guarantee_btn: "استشارة مجانية للموقع",
+                mock_corp_tab1: "✓ خدماتنا",
+                mock_corp_tab2: "سابقة الأعمال",
+                mock_ad_badge: "حملة إعلانية نشطة",
+                mock_ad_headline: "احصل على العرض اليوم",
+                mock_ad_cta: "💬 تواصل واطلب عبر الواتساب فوراً",
+                mock_portal_badge: "بوابة حجز ودفع",
+                mock_portal_label: "حجز موعد أونلاين:",
+                mock_portal_status: "متاح الآن",
+                mock_portal_pay1: "فيزا / ميزة 💳",
+                mock_portal_pay2: "فوري ⚡",
+                clinics_sec_badge: "أنظمة العيادات التخصصية",
+                clinics_sec_title: "برمجيات مخصصة ومفصلة لكل تخصص طبي",
+                clinics_sec_sub: "اختر تخصص عيادتك وتعرف على الأدوات البرمجية الدقيقة المصممة خصيصاً لسير عملك اليومي.",
+                spec_nutrition: "التغذية والرجيم",
+                spec_dental: "عيادات الأسنان",
+                spec_derma: "الجلدية والتجميل",
+                spec_pedia: "عيادات الأطفال",
+                spec_physio: "العلاج الطبيعي",
+                lbl_ready: "جاهز للعمل",
+                comm_deep_badge: "القطاعات التجارية والرياضية",
+                comm_deep_title: "برمجيات المحلات، أندية الجيم، والأنظمة المخصصة",
+                comm_deep_sub: "بناء معماري متقدم مصمم للشركات الرياضية، منافذ التجزئة السريعة، وتفصيل الأنظمة البرمجية المستقلة بنسبة 100%.",
+                hero_p1_title: "قسم تصميم وتطوير المواقع",
+                hero_p1_sub: "مواقع شركات، صفحات هبوط إعلانية، ومتاجر",
+                hero_p2_title: "قسم الأنظمة والبرمجيات الذكية",
+                hero_p2_sub: "عيادات، محلات، جيم، تعمل بدون نت",
+                bento_gym_badge: "🏋️ أندية الجيم واللياقة البدنية",
+                bento_gym_title: "بوابات دخول ذكية وأتمتة كاملة لاشتراكات الجيم",
+                bento_gym_desc: "حل تقني متكامل يربط البوابات الإلكترونية (Turnstiles) بمنظومة العضويات، مع روبوت واتساب لتجديد الاشتراكات تلقائياً ومتابعة حصص وعمولات المدربين (PT).",
+                bento_gym_sim_user: "كابتن زياد إبراهيم",
+                bento_gym_sim_sub: "عضوية سنوية VIP • كود #9821",
+                bento_gym_sim_gate: "🟢 تم فتح البوابة",
+                bento_gym_sim_days_lbl: "الأيام المتبقية:",
+                bento_gym_sim_days_val: "متبقي 42 يوم",
+                bento_gym_sim_pt_lbl: "حصص التدريب (PT):",
+                bento_gym_sim_pt_val: "4 حصص متبقية",
+                bento_gym_f1: "بوابات إلكترونية بالـ QR",
+                bento_gym_f2: "تنبيهات التجديد بالواتساب",
+                bento_gym_f3: "حساب عمولات المدربين PT",
+                bento_gym_f4: "كاشير المكملات والسناكس",
+                bento_gym_btn: "💬 استفسر عن نظام الجيم بالواتساب",
+                bento_pos_badge: "🛍️ كاشير المحلات ونقاط البيع",
+                bento_pos_title: "كاشير فائق السرعة يعمل أوفلاين 100%",
+                bento_pos_desc: "أداء فوري لا يتوقف عند انقطاع الإنترنت، مع إدارة متقدمة لمصفوفة المقاسات والألوان وتنبيهات النواقص وتزامن الفروع.",
+                bento_pos_sim_item: "قميص قطني كاجوال (L / أزرق)",
+                bento_pos_sim_scan: "الباركود: #8901245 |||||",
+                bento_pos_sim_offline: "أوفلاين 100% ✓",
+                bento_pos_sim_matrix: "المتبقي بالمخزن المركزي:",
+                bento_pos_f1: "إتمام البيع في جزء من الثانية مع الباركود",
+                bento_pos_f2: "مصفوفة المقاسات والألوان للملابس",
+                bento_pos_f3: "تنبيهات النواقص وتواريخ الصلاحية",
+                bento_pos_f4: "طباعة فواتير وإيصالات حرارية فورية",
+                bento_pos_btn: "💬 استفسر عن كاشير المحلات",
+                bento_custom_badge: "برمجة وتفصيل أنظمة خاصة 100%",
+                bento_custom_title: "فكرة مشروعك فريدة؟ نبني لها نظاماً مؤسسياً مخصصاً بالكامل",
+                bento_custom_desc: "لا تجبر عملك على التقيد بقوالب جاهزة لا تناسب نشاطك. نقوم بهندسة وبناء برمجياتك الخاصة من الصفر بتقنية Flutter وقواعد بيانات سحابية أو محلية، مع ربط كامل مع أي API، بوابات الدفع، وشركات الشحن.",
+                bento_custom_f1: "ملكية كاملة بدون اشتراكات",
+                bento_custom_f2: "بوابات دفع وشحن ومستودعات",
+                bento_custom_f3: "كمبيوتر وموبايل وشاشات لمس",
+                bento_custom_pipe_title: "مخطط الربط المعماري للنظام:",
+                bento_custom_btn: "💬 احجز جلسة استشارة ومناقشة لمشروعك",
+                tab_gyms: "أندية الجيم واللياقة",
+                tab_retail: "المحلات ونقاط البيع (كاشير)",
+                tab_custom: "نظام مخصص لشركتك 100%",
+                comm_modules_head: "الوحدات والمميزات التفصيلية للنظام:",
+                lbl_live_sim: "معاينة تفاعلية",
+                lbl_offline_badge: "يعمل بدون نت 100%",
+                pillars_badge: "المعايير الهندسية للأنظمة",
+                pillars_title: "الميزات الأساسية والعملية لأنظمة Entrustic",
+                pillars_subtitle: "تم بناء أنظمة Entrustic من الألف إلى الياء لتجاوز العقبات التقنية وضمان استمرارية عملك بأعلى كفاءة وأمان.",
+                p1_title: "الواتساب التلقائي",
+                p1_desc: "إرسال تأكيدات الحجز، الروشتات الرقمية، التذكير بمواعيد الجلسات، وتنبيهات الاشتراكات تلقائياً بدون تدخل بشري أو مصاريف إضافية.",
+                p1_foot: "إشعارات آلية على مدار الساعة",
+                p2_title: "التقارير والماليات اللحظية",
+                p2_desc: "تقارير الأرباح والمصروفات اللحظية، وتدفقات السيولة اليومية، ومتابعة خزائن الكاش والفيزا مباشرة على موبايل صاحب العمل.",
+                p2_foot: "لوحة متابعة فورية للإدارة",
+                p3_title: "العمل بدون إنترنت (أوفلاين)",
+                p3_desc: "حفظ البيانات على جهاز الكمبيوتر أو التابلت محلياً واستمرار العمل حتى لو انقطع النت، وتزامن تلقائي مع السحابة فور العودة.",
+                p3_foot: "استمرارية تامة للعمل",
+                p4_title: "الأمان والتشفير العالي",
+                p4_desc: "تشفير كامل لملفات المرضى والحسابات، مع إدارة صلاحيات دقيقة للموظفين والمساعدين، ونسخ احتياطي دوري سحابي ومحلي.",
+                p4_foot: "حماية وخصوصية مشددة",
+                wa_pill: "الربط التلقائي عبر الواتساب",
+                wa_title_1: "تواصل فوري وآلي مع عملائك",
+                wa_title_2: "يرفع التزام العملاء بنسبة 45%",
+                wa_desc: "لا داعي لتضييع وقت موظفيك في المكالمات الهاتفية المتكررة. نظام Entrustic يرسل الروشتة فوراً، يُذكر المريض بموعد جلسته، ويرسل خطة العلاج والدايت وتنبيهات تجديد الجيم بنقرة واحدة عبر تطبيق الواتساب الرسمي.",
+                wa_item_1: "إرسال تأكيد الحجز وموقع العيادة أو المتجر فور التسجيل",
+                wa_item_2: "تذكير تلقائي قبل الموعد أو انتهاء الاشتراك مع خيارات التجديد",
+                wa_item_3: "إرسال الروشتات وملفات الـ PDF والفواتير بنقرة زر واحدة",
+                wa_bot_name: "مساعد Entrustic الذكي",
+                wa_bot_status: "حساب رسمي معتمد • متصل الآن",
+                wa_msg1_title: "أهلاً بك يا سارة 👋",
+                wa_msg1_body: "تم تأكيد حجز موعدك ليوم الأحد الساعة 6:00 مساءً مع د. محمد سعيد.",
+                wa_msg2_body: "تم إرسال الخطة الغذائية بناءً على قياس InBody الأخير.",
+                wa_msg3_body: "تنبيه: متبقي 3 أيام على انتهاء اشتراكك. جدد الآن واحصل على حصتين تدريب مجاناً!",
+                wa_msg3_btn: "تجديد الاشتراك بالواتساب ✓",
+                wa_user_reply: "سأقوم بالتحويل والتجديد غداً أثناء الحصة. شكراً جزيلاً!",
+                wa_input_placeholder: "الرد التلقائي مفعل عبر Entrustic...",
+                platforms_badge: "بيئة تشغيل موحدة لكافة أجهزتك",
+                platforms_title: "نظام واحد يعمل على شاشات الكمبيوتر، الموبايل، والويب",
+                platforms_desc: "مبني بتقنية Flutter المتطورة، مما يوفر لك سرعة استجابة فائقة للديسكتوب، وشاشات لمس مميزة للتابلت، وتطبيق موبايل لمتابعة عملك لحظة بلحظة من أي مكان.",
+                plat_desktop: "للإدارة ومكاتب الاستقبال",
+                plat_mobile: "لمتابعة المالك والعملاء",
+                plat_tablet: "للإقرارات وشاشات اللمس",
+                plat_web: "للمواقع والمزامنة السحابية",
+                config_badge: "طلب عرض سعر واختيار الباقة",
+                config_title: "اختر باقتك الجاهزة أو فصّل نظاماً مخصصاً لعيادتك ومشروعك",
+                config_sub: "سواء كنت تفضل البدء فوراً باختيار باقة متكاملة، أو تخصيص ميزات محددة، أو التحدث مباشرة مع مهندس برمجيات لتفصيل نظام فريد من الصفر.",
+                mode_packages: "الباقات والحلول الجاهزة (1، 2، 3)",
+                mode_custom: "حاسبة تفصيل الميزات بنفسك",
+                pkg1_badge: "الباقة 1: الأساسية",
+                pkg1_title: "إدارة الأعمال والعيادات",
+                pkg1_desc: "مثالية للعيادات والمحلات التي تبدأ رحلة تنظيم عملها رقمياً بنظام خفيف ومستقر بدون تعقيد.",
+                pkg1_f1: "سجلات المرضى / العملاء والكشوفات",
+                pkg1_f2: "العمل أوفلاين 100% بدون نت على الكمبيوتر",
+                pkg1_f3: "فواتير سريعة وتقرير الخزينة اليومي",
+                pkg1_f4: "تدريب الفريق ودعم فني مستمر",
+                pkg1_btn: "💬 اطلب الباقة الأساسية بالواتساب",
+                pkg2_featured: "⭐ الأكثر طلباً للعيادات والمراكز",
+                pkg2_badge: "الباقة 2: الاحترافية الذكية",
+                pkg2_title: "الأتمتة وروبوت الواتساب",
+                pkg2_desc: "النظام الشامل المفضل للأطباء وأصحاب الأعمال: تواصل آلي كامل مع العميل ومتابعة مالية لحظية.",
+                pkg2_f1: "كافة مميزات الباقة الأساسية",
+                pkg2_f2: "ربط الواتساب الرسمي (روشتات وتأكيد حجز تلقائي)",
+                pkg2_f3: "تنبيهات تذكير بالمواعيد واشتراكات الجيم آلياً",
+                pkg2_f4: "تقارير مالية ولحظية على موبايل صاحب العمل",
+                pkg2_f5: "مزامنة سحابية دورية مع حفظ محلي مشفر",
+                pkg2_btn: "💬 اطلب باقة الأتمتة والواتساب",
+                pkg3_badge: "الباقة 3: المنظومة الشاملة",
+                pkg3_title: "البرنامج + موقع ويب مخصص",
+                pkg3_desc: "حضور رقمي كامل: نظام إداري داخلي مترابط مع موقع إلكتروني باسمك وبوابة حجز وتطبيق عملاء.",
+                pkg3_f1: "كافة ميزات باقة الأتمتة والواتساب",
+                pkg3_f2: "تصميم وبرمجة موقع ويب تعريفي كامل لعيادتك",
+                pkg3_f3: "بوابة حجز وكشوفات تفاعلية أونلاين",
+                pkg3_f4: "ربط فروع متعددة ومخزن مركزي",
+                pkg3_f5: "دومين واستضافة سحابية فائقة السرعة مجاناً",
+                pkg3_btn: "💬 اطلب المنظومة الشاملة بالواتساب",
+                custom_head_title: "حاسبة المواصفات والميزات المفصلة",
+                custom_head_sub: "اختر نشاطك والميزات المحددة التي تحتاجها في نظامك لتوليد رسالة تفصيلية فورية.",
+                lbl_select_sector: "اختر نوع الخدمة أو النشاط:",
+                lbl_addons: "حدد الميزات والإضافات المطلوبة (اختر ما يناسبك):",
+                chk_1: "ربط الواتساب الآلي للإشعارات والمواعيد 💬",
+                chk_2: "العمل بدون إنترنت (أوفلاين 100%) ⚡",
+                chk_3: "موقع ويب تعريفي أو صفحة هبوط إعلانية 🌐",
+                chk_app: "تطبيق موبايل خاص للمرضى أو العملاء 📱",
+                chk_4: "ربط فروع متعددة ومخزن مركزي 🏢",
+                chk_payments: "بوابات دفع إلكتروني وفواتير حرارية 💳",
+                chk_devices: "ربط أجهزة المعامل أو البوابات الذكية 🔬",
+                chk_cloud: "خادم سحابي مشفر مع نسخ احتياطي دوري 🛡️",
+                config_submit_btn: "💬 إرسال الطلب ومناقشته عبر الواتساب",
+                vip_badge: "تفصيل خاص من الصفر (100% Bespoke)",
+                vip_title: "عايز تتكلم مع مهندس يفصل لك حاجة مخصوص لعيادتك أو مشروعك؟",
+                vip_desc: "إذا كانت فكرة مشروعك غير تقليدية ولا تلائمها الباقات أو الخيارات الجاهزة، يمكنك التحدث مباشرة مع كبير مهندسي Entrustic لنستمع لاحتياجاتك ونبني لك نظاماً وكوداً مخصصاً بالكامل لفكرتك.",
+                vip_btn: "تحدث مباشرة مع مهندس النظام",
+                foot_support: "الدعم الفني والواتساب",
+                foot_copy: "© 2026 Entrustic. جميع الحقوق محفوظة. Trust The Code, Own The Control."
+            },
+            en: {
+                nav_vision: "Vision & Services",
+                nav_websites: "Web Development",
+                nav_clinics: "Medical Clinics",
+                nav_commercial: "Retail & Gyms",
+                nav_features: "Core Features",
+                nav_pricing: "Get a Quote",
+                btn_consult: "Contact Us",
+                hero_badge: "✨ Your Tech Partner for Custom Websites & Software",
+                hero_title_1: "We Build Your Custom Website",
+                hero_title_2: "& Business Systems with Zero Bottlenecks.",
+                hero_desc: "At Entrustic, we build your complete digital presence: from high-converting modern websites and landing pages, to robust offline-first clinic, gym, and retail POS software built with Flutter and automated WhatsApp integrations.",
+                hero_cta_web: "Explore Custom Websites",
+                hero_cta_software: "Clinic & Business Software",
+                badge_websites: "Fast & Stunning Websites",
+                badge_offline: "Offline-First Continuity",
+                badge_whatsapp: "Automated WhatsApp Sync",
+                mockup_top_status: "Entrustic Ecosystem (Active 🟢)",
+                mockup_sync: "Instant Cloud Sync",
+                mock_web_visits: "Website Speed",
+                mock_val_speed: "Ultra Fast",
+                mock_wa_sent: "WhatsApp Messages",
+                mock_val_wa: "100% Automated",
+                mock_offline_status: "Offline Mode",
+                mock_val_offline: "Zero Downtime",
+                mock_item_web: "New Website: Landing Page Deployed",
+                mock_item_web_sub: "Fully Mobile-Responsive • SEO Ready",
+                mock_status_live: "Live Online ✓",
+                mock_item_clinic: "Dr. Mohamed Saied - Physical Therapy Clinic",
+                mock_item_clinic_sub: "Rehab plan & session schedule confirmed via WhatsApp",
+                mock_status_done: "Completed ✓",
+                mock_wa_bubble_head: "Instant WhatsApp Alert:",
+                mock_wa_bubble_sub: "New client booked a consultation on your website",
+                val_1_title: "100% Tailor-Made Code",
+                val_1_desc: "Every screen and workflow built strictly around your specific idea, no generic templates",
+                val_2_title: "Runs Reliably Offline",
+                val_2_desc: "Systems continue functioning seamlessly with zero network interruptions and cloud sync",
+                val_3_title: "Intelligent WhatsApp Automation",
+                val_3_desc: "Instant automated invoices, appointment alerts, and reminders sent to your customers",
+                val_4_title: "Direct Founder & Dev Support",
+                val_4_desc: "Work directly with our engineering team from concept through deployment and beyond",
+                web_badge: "Website Design & Development",
+                web_sec_title: "Modern, High-Performance Websites Engineered to Win Clients",
+                web_sec_sub: "Beyond software, we craft bespoke web experiences and high-converting marketing landing pages that give your business a credible digital presence and drive direct conversions.",
+                web_cat1_title: "Corporate & Business Websites",
+                web_cat1_desc: "A comprehensive digital showroom presenting your services, credentials, and contact points with elite speed and design.",
+                web_cat1_f1: "Custom bespoke UI matching your unique brand identity",
+                web_cat1_f2: "Seamless bilingual support (Arabic & English)",
+                web_cat1_f3: "Full search engine optimization (SEO) for Google ranking",
+                web_cat1_f4: "100% responsive across mobile, tablet, and desktop screens",
+                web_cat1_btn: "Request Corporate Website",
+                web_cat2_title: "High-Converting Landing Pages",
+                web_cat2_desc: "Laser-focused landing pages engineered for Facebook, TikTok, and Google Ads campaigns to maximize conversions.",
+                web_cat2_f1: "Sub-second load times preventing ad visitor drop-offs",
+                web_cat2_f2: "Instant 1-click WhatsApp and call booking triggers",
+                web_cat2_f3: "Integrated tracking (Meta Pixel & TikTok Pixel)",
+                web_cat2_f4: "Real-time lead form alerts sent directly to your phone",
+                web_cat2_btn: "Request Ad Landing Page",
+                web_cat3_title: "Interactive Web Portals & Stores",
+                web_cat3_desc: "Interactive web applications allowing your clients to book appointments, track orders, and pay online.",
+                web_cat3_f1: "Live online booking & scheduling calendar",
+                web_cat3_f2: "Online payment gateway integration (Credit card, Fawry, Meeza)",
+                web_cat3_f3: "Secure customer and client self-service portals",
+                web_cat3_f4: "Direct synchronization with your internal backend databases",
+                web_cat3_btn: "Request Web Portal",
+                web_guarantee_title: "High-Speed Cloud Hosting + Free SSL Security Certificate",
+                web_guarantee_sub: "We guarantee 24/7 uptime, extreme loading speed, and military-grade SSL data encryption.",
+                web_guarantee_btn: "Free Website Consultation",
+                mock_corp_tab1: "✓ Our Services",
+                mock_corp_tab2: "Portfolio",
+                mock_ad_badge: "Active Ad Campaign",
+                mock_ad_headline: "Get Today's Offer",
+                mock_ad_cta: "💬 Contact & Order via WhatsApp Now",
+                mock_portal_badge: "Booking & Payment Portal",
+                mock_portal_label: "Book Online Appointment:",
+                mock_portal_status: "Available Now",
+                mock_portal_pay1: "Visa / Card 💳",
+                mock_portal_pay2: "Instant Pay ⚡",
+                clinics_sec_badge: "Specialized Clinic Software",
+                clinics_sec_title: "Tailored Software Engineered for Medical Practices",
+                clinics_sec_sub: "Select your specialty and discover precision tools designed specifically for your daily practice workflow.",
+                spec_nutrition: "Nutrition & Diet",
+                spec_dental: "Dental Clinics",
+                spec_derma: "Derma & Cosmetics",
+                spec_pedia: "Pediatrics",
+                spec_physio: "Physiotherapy",
+                lbl_ready: "System Ready",
+                comm_deep_badge: "Commercial & Fitness Solutions",
+                comm_deep_title: "Software for Retail, Gyms, and Custom Enterprises",
+                comm_deep_sub: "Advanced architecture engineered for fitness clubs, high-speed retail checkout, and 100% bespoke software.",
+                hero_p1_title: "Web Development Division",
+                hero_p1_sub: "Corporate Sites, Ad Landing Pages & E-Commerce",
+                hero_p2_title: "Smart Enterprise Software Division",
+                hero_p2_sub: "Clinics, Retail, Gyms, Offline-First Flutter",
+                bento_gym_badge: "🏋️ Gyms & Turnstile Access",
+                bento_gym_title: "Smart Turnstiles & Automated Gym Membership ERP",
+                bento_gym_desc: "Integrated ecosystem connecting hardware turnstiles with member accounts, automated WhatsApp renewal alerts, and trainer (PT) commission tracking.",
+                bento_gym_sim_user: "Coach Ziad Ibrahim",
+                bento_gym_sim_sub: "Annual VIP Member • ID #9821",
+                bento_gym_sim_gate: "🟢 Access Granted",
+                bento_gym_sim_days_lbl: "Remaining Days:",
+                bento_gym_sim_days_val: "42 days left",
+                bento_gym_sim_pt_lbl: "PT Sessions Left:",
+                bento_gym_sim_pt_val: "4 sessions remaining",
+                bento_gym_f1: "Sub-second QR turnstile access",
+                bento_gym_f2: "Automated WhatsApp renewal alerts",
+                bento_gym_f3: "Personal Trainer (PT) commission tracker",
+                bento_gym_f4: "Supplements POS bar terminal",
+                bento_gym_btn: "💬 Discuss Gym System on WhatsApp",
+                bento_pos_badge: "🛍️ Retail Stores & POS",
+                bento_pos_title: "High-Speed Cashier POS Running 100% Offline",
+                bento_pos_desc: "Built for intense retail operations with zero downtime when internet cuts out. Includes size/color matrix, stock alerts, and multi-branch sync.",
+                bento_pos_sim_item: "Casual Cotton Shirt (L / Blue)",
+                bento_pos_sim_scan: "Barcode: #8901245 |||||",
+                bento_pos_sim_offline: "100% Offline Active ✓",
+                bento_pos_sim_matrix: "Central Warehouse Stock:",
+                bento_pos_f1: "Sub-second barcode scanning and checkout",
+                bento_pos_f2: "Size and color inventory matrix",
+                bento_pos_f3: "Automated restock and expiration alerts",
+                bento_pos_f4: "Instant thermal receipts and invoices",
+                bento_pos_btn: "💬 Discuss Retail POS on WhatsApp",
+                bento_custom_badge: "100% Custom Tailored Software",
+                bento_custom_title: "Unique Business Idea? We Engineer a Custom System",
+                bento_custom_desc: "Never force your business into restrictive templates. We engineer your tailored software from scratch with Flutter, integrating custom APIs, payment gateways, and logistics.",
+                bento_custom_f1: "Full IP ownership, zero subscriptions",
+                bento_custom_f2: "External payment & shipping APIs",
+                bento_custom_f3: "Desktop, mobile & touch terminals",
+                bento_custom_pipe_title: "System Architecture Pipeline:",
+                bento_custom_btn: "💬 Book a Technical Consultation",
+                tab_gyms: "Gyms & Fitness Clubs",
+                tab_retail: "Retail & Shops POS",
+                tab_custom: "100% Custom Enterprise",
+                comm_modules_head: "In-Depth System Modules:",
+                lbl_live_sim: "Interactive Simulation",
+                lbl_offline_badge: "100% Offline Active",
+                pillars_badge: "Engineering Standards",
+                pillars_title: "Core Software Capabilities by Entrustic",
+                pillars_subtitle: "Engineered from the ground up to eliminate technical bottlenecks and empower your daily operations.",
+                p1_title: "Automated WhatsApp",
+                p1_desc: "Automatic booking confirmations, digital Rx delivery, session reminders, and membership alerts without human intervention.",
+                p1_foot: "24/7 automated messaging",
+                p2_title: "Real-time Financials",
+                p2_desc: "Instant profit/loss statements, cash vs credit transactions, and live financial streams directly on the owner's phone.",
+                p2_foot: "Live management dashboard",
+                p3_title: "Runs Offline (Offline-First)",
+                p3_desc: "Never stop working when internet fails. Local data storage with instant cloud synchronization once reconnected.",
+                p3_foot: "Zero operational downtime",
+                p4_title: "High Security & Encryption",
+                p4_desc: "Full patient data encryption, granular role permissions, and regular automated local & cloud backups.",
+                p4_foot: "Strict privacy safeguards",
+                wa_pill: "Automated WhatsApp Connectivity",
+                wa_title_1: "Instant Automated Client Engagement",
+                wa_title_2: "Reduces No-Shows & Boosts Renewals by 45%",
+                wa_desc: "Eliminate repetitive phone calls for receptionists. Entrustic delivers instant digital prescriptions, appointment reminders, diet plans, and gym renewals automatically via official WhatsApp.",
+                wa_item_1: "Instant booking confirmation & GPS location upon registration",
+                wa_item_2: "Automated advance reminder with interactive confirmation buttons",
+                wa_item_3: "One-click digital prescription, PDF, or invoice export to WhatsApp",
+                wa_bot_name: "Entrustic Smart Assistant",
+                wa_bot_status: "Verified Official Account • Online",
+                wa_msg1_title: "Hello Sara 👋",
+                wa_msg1_body: "Your consultation appointment is confirmed for Sunday at 6:00 PM with Dr. Mohamed Saied.",
+                wa_msg2_body: "Your customized diet plan has been generated based on your latest InBody analysis.",
+                wa_msg3_body: "Notice: 3 days remaining on your membership. Renew now to claim 2 complimentary PT sessions!",
+                wa_msg3_btn: "Renew via WhatsApp ✓",
+                wa_user_reply: "I will renew tomorrow during my session. Thank you very much!",
+                wa_input_placeholder: "Automated response active via Entrustic...",
+                platforms_badge: "Unified Multi-Device Ecosystem",
+                platforms_title: "One Unified System Across Desktop, Mobile & Web",
+                platforms_desc: "Built with Flutter for high performance on Windows, macOS, iPads, tablets, and web browsers, keeping your team connected everywhere.",
+                plat_desktop: "Management & Reception Terminals",
+                plat_mobile: "Owner Monitoring & Client Access",
+                plat_tablet: "Touch Kiosks & E-Consent Forms",
+                plat_web: "Websites & Cloud Dashboards",
+                config_badge: "Pricing Plans & Custom Scope",
+                config_title: "Choose a Ready Package or Customize a Bespoke System",
+                config_sub: "Start instantly with an all-in-one package, select specific custom add-ons, or speak directly with a software engineer for 100% bespoke engineering.",
+                mode_packages: "Ready Packages (1, 2, 3)",
+                mode_custom: "Custom Feature Calculator",
+                pkg1_badge: "Package 1: Essential",
+                pkg1_title: "Business & Clinic Management",
+                pkg1_desc: "Ideal for clinics and local businesses starting their digital transformation with a clean, rock-solid system.",
+                pkg1_f1: "Patient / Client records & consultation logs",
+                pkg1_f2: "Runs 100% offline without internet on PC",
+                pkg1_f3: "Fast billing & daily cash drawer reports",
+                pkg1_f4: "Full team training & dedicated technical support",
+                pkg1_btn: "💬 Order Starter Package on WhatsApp",
+                pkg2_featured: "⭐ Most Popular for Clinics & Centers",
+                pkg2_badge: "Package 2: Pro Automation",
+                pkg2_title: "Automation & WhatsApp Bot",
+                pkg2_desc: "The complete setup favored by physicians and business owners: zero-touch client communication & live analytics.",
+                pkg2_f1: "All features in the Starter package",
+                pkg2_f2: "Official WhatsApp sync (Auto Rx & booking confirmations)",
+                pkg2_f3: "Automated appointment & gym membership renewal alerts",
+                pkg2_f4: "Live financial reports on the owner's smartphone",
+                pkg2_f5: "Scheduled encrypted cloud backup with local caching",
+                pkg2_btn: "💬 Order Automation & WhatsApp Package",
+                pkg3_badge: "Package 3: Full Ecosystem",
+                pkg3_title: "Software + Custom Website",
+                pkg3_desc: "Full digital footprint: an internal management system seamlessly linked with your branded website & online booking portal.",
+                pkg3_f1: "All features in the Pro Automation package",
+                pkg3_f2: "Full custom website designed & built for your clinic",
+                pkg3_f3: "Interactive online booking & consultation portal",
+                pkg3_f4: "Multi-branch connectivity & centralized inventory",
+                pkg3_f5: "Free domain & blazing-fast cloud hosting included",
+                pkg3_btn: "💬 Order Full Ecosystem on WhatsApp",
+                custom_head_title: "Granular Scope & Feature Calculator",
+                custom_head_sub: "Select your industry and the specific modules you need to generate an instant technical proposal.",
+                lbl_select_sector: "Select Service or Industry:",
+                lbl_addons: "Select Desired Add-ons:",
+                chk_1: "Automated WhatsApp alerts & prescriptions 💬",
+                chk_2: "Offline-First local continuity (100%) ⚡",
+                chk_3: "Responsive marketing website or landing page 🌐",
+                chk_app: "Custom mobile app for patients/clients 📱",
+                chk_4: "Multi-branch & central warehouse sync 🏢",
+                chk_payments: "Online payment gateways & thermal receipts 💳",
+                chk_devices: "Lab analyzers & smart turnstiles integration 🔬",
+                chk_cloud: "Encrypted cloud server with regular automated backups 🛡️",
+                config_submit_btn: "💬 Send Request & Discuss on WhatsApp",
+                vip_badge: "100% Bespoke Engineering",
+                vip_title: "Want to talk directly with an engineer to build something tailored for you?",
+                vip_desc: "If your project needs unique workflows that don't fit off-the-shelf packages, connect 1-on-1 with Entrustic's lead engineers to discuss your exact vision and build tailor-made code.",
+                vip_btn: "Speak Directly with Lead Engineer",
+                foot_support: "Technical Support & WhatsApp",
+                foot_copy: "© 2026 Entrustic. All rights reserved. Trust The Code, Own The Control."
+            }
+        };
+
+        const sectorOptions = [
+            { id: 'corporate_web', ar: '🌐 تصميم وبرمجة موقع إلكتروني لشركة', en: '🌐 Corporate Website Design & Development' },
+            { id: 'landing_page', ar: '🚀 صفحة هبوط تسويقية للإعلانات', en: '🚀 High-Converting Ad Landing Page' },
+            { id: 'web_portal', ar: '🛒 متجر أو منصة حجز ودفع إلكتروني', en: '🛒 E-commerce & Booking Web Portal' },
+            { id: 'nutrition', ar: '🍏 برنامج عيادات التغذية وعلاج السمنة', en: '🍏 Nutrition & Diet Clinic System' },
+            { id: 'dental', ar: '🦷 برنامج عيادات ومراكز الأسنان', en: '🦷 Dental Practice & Labs System' },
+            { id: 'derma', ar: '✨ برنامج عيادات الجلدية والليزر', en: '✨ Dermatology & Laser Clinic System' },
+            { id: 'pediatrics', ar: '👶 برنامج عيادات طب الأطفال', en: '👶 Pediatrics Practice System' },
+            { id: 'physio', ar: '⚡ برنامج مراكز العلاج الطبيعي', en: '⚡ Physiotherapy & Rehab System' },
+            { id: 'gyms', ar: '🏋️ نظام أندية الجيم وبوابات الدخول', en: '🏋️ Gyms & Turnstile Access System' },
+            { id: 'retail', ar: '🛍️ كاشير المحلات ونقاط البيع السريعة', en: '🛍️ Retail & POS Offline Cashier' },
+            { id: 'custom', ar: '⚙️ برنامج مخصص بالكامل لفكرة مشروعي', en: '⚙️ 100% Tailored Enterprise System' }
+        ];
+
+        let selectedSectorId = 'corporate_web';
+        let currentLang = 'ar';
+
+        function renderSectorOptions() {
+            const select = document.getElementById('config-sector');
+            if (!select) return;
+            select.innerHTML = sectorOptions.map(opt => `
+                <option value="${opt.id}" ${opt.id === selectedSectorId ? 'selected' : ''}>
+                    ${currentLang === 'ar' ? opt.ar : opt.en}
+                </option>
+            `).join('');
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('lang-label').innerText = currentLang === 'ar' ? 'English' : 'عربي';
+
+            // Update all i18n data elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18nData[currentLang] && i18nData[currentLang][key]) {
+                    el.innerText = i18nData[currentLang][key];
+                }
+            });
+
+            // Re-render select dropdown with current language
+            renderSectorOptions();
+
+            // Re-render views with language
+            switchClinic(currentClinicKey);
+            updateAllWhatsAppLinks();
+            updateConfigMessage();
+        }
+
+        // 1. Clinic Specialties Data Structure
+        const clinicData = {
+            'nutrition': {
+                icon: '🍏',
+                badgeAr: 'التغذية وعلاج السمنة',
+                badgeEn: 'Nutrition & Dietetics',
+                titleAr: 'عيادات التغذية وعلاج السمنة',
+                titleEn: 'Nutrition & Diet Clinics',
+                descAr: 'نظام متكامل يربط بين أجهزة تحليل الجسم وتوليد الدايت الذكي وتطبيقات المتابعة للمريض.',
+                descEn: 'Comprehensive system connecting InBody analysis, smart diet plan generation, and patient progress app.',
+                featuresAr: [
+                    'ربط تلقائي مع أجهزة تحليل الجسم (InBody) ورسم بياني لنسبة الدهون والعضلات',
+                    'مولد أنظمة غذائية ذكي يحسب السعرات والماكروز تلقائياً',
+                    'تصدير وإرسال الـ Diet Plan بصيغة PDF للواتساب بضغطة زر واحدة',
+                    'تطبيق موبايل مخصص للمريض لمتابعة الوجبات اليومية والوزن لحظة بلحظة'
+                ],
+                featuresEn: [
+                    'Direct InBody sync with fat & muscle mass comparative graphs',
+                    'Smart Diet Generator auto-calculating calories and macronutrients',
+                    '1-Click WhatsApp Diet Plan PDF export directly to patient',
+                    'Dedicated patient mobile app for daily meal tracking & weight progress'
+                ],
+                widgetTitleAr: 'مؤشر تحليل InBody الذكي',
+                widgetTitleEn: 'Smart InBody Analyzer Widget',
+                widgetHtml: `
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
+                        <div class="flex justify-between items-center text-[11px] font-bold">
+                            <span class="text-slate-700">نسبة الدهون:</span>
+                            <span class="text-rose-500 font-extrabold">21.4% (انخفاض -2.1%)</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-2.5">
+                            <div class="bg-emerald-500 h-2.5 rounded-full" style="width: 68%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+                        <div class="flex justify-between items-center text-[11px]">
+                            <span class="font-bold text-slate-800">السعرات المقترحة:</span>
+                            <span class="font-black text-primary">1,750 سعر حراري / يوم</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400">بروتين: 130g | كارب: 175g | دهون: 45g</span>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-emerald-50 text-emerald-700 font-bold text-[10px] text-center border border-emerald-200">
+                        ✓ جاهز للإرسال PDF عبر الواتساب بنقرة واحدة
+                    </div>
+                `
+            },
+            'dental': {
+                icon: '🦷',
+                badgeAr: 'طب وجراحة الأسنان',
+                badgeEn: 'Dental Practice',
+                titleAr: 'عيادات ومراكز الأسنان',
+                titleEn: 'Dental Clinics & Surgery',
+                descAr: 'مخطط رسومي تفاعلي للأسنان مع متابعة خطط العلاج الطويلة ومعامل التركيبات بدقة متناهية.',
+                descEn: 'Interactive graphical tooth charting, multi-session installment tracking, and dental lab order management.',
+                featuresAr: [
+                    'رسم تفاعلي للأسنان للبالغين والأطفال',
+                    'نظام خطط العلاج متعددة الجلسات وتقسيط وتوزيع المبالغ المالية',
+                    'متابعة معامل الأسنان وطلبات التركيبات والتقويم ومواعيد استلامها',
+                    'ألبوم صور طبية قبل وبعد (Before & After) عالية الدقة'
+                ],
+                featuresEn: [
+                    'Interactive Graphical Tooth Chart for adult & primary pediatric dentition',
+                    'Multi-session treatment plan tracking with installment payment schedules',
+                    'Dental Lab order dispatcher & prosthetic status tracking',
+                    'High-resolution Before & After clinical photo gallery'
+                ],
+                widgetTitleAr: 'مخطط الأسنان التفاعلي',
+                widgetTitleEn: 'Interactive Tooth Chart Preview',
+                widgetHtml: `
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 text-center space-y-2">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase">الفك العلوي</span>
+                        <div class="flex justify-center gap-1 text-xs">
+                            <span class="w-6 h-6 rounded bg-slate-100 border border-slate-300 flex items-center justify-center font-bold">11</span>
+                            <span class="w-6 h-6 rounded bg-emerald-100 border border-emerald-400 text-emerald-700 flex items-center justify-center font-bold">12</span>
+                            <span class="w-6 h-6 rounded bg-amber-100 border border-amber-400 text-amber-800 flex items-center justify-center font-bold">13</span>
+                            <span class="w-6 h-6 rounded bg-blue-500 text-white flex items-center justify-center font-bold">14</span>
+                            <span class="w-6 h-6 rounded bg-slate-100 border border-slate-300 flex items-center justify-center font-bold">15</span>
+                        </div>
+                        <span class="text-[10px] text-primary font-bold block">السن 14: حشو عصب + تاج زيركون (معمل الأمل)</span>
+                    </div>
+                    <div class="bg-white p-2.5 rounded-xl border border-slate-200 flex justify-between items-center text-[10px]">
+                        <span class="text-slate-600 font-semibold">المتبقي من الخطة: 1,500 ج.م</span>
+                        <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold">قسط قادم 15 مارس</span>
+                    </div>
+                `
+            },
+            'derma': {
+                icon: '✨',
+                badgeAr: 'الجلدية والليزر والتجميل',
+                badgeEn: 'Dermatology & Cosmetics',
+                titleAr: 'عيادات الجلدية والتجميل',
+                titleEn: 'Dermatology & Cosmetics',
+                descAr: 'إدارة متخصصة لجلسات الليزر واستهلاك حقن الفيلر والبوتوكس مع إقرارات رقمية وتوثيق الحالات.',
+                descEn: 'Laser session counting, Botox/Filler ml consumable tracking, iPad consent forms, and watermarked galleries.',
+                featuresAr: [
+                    'عداد جلسات الليزر والتجميل مع تذكير تلقائي بالمواعيد عبر الواتساب',
+                    'تتبع استهلاك المواد (حقن البوتوكس/الفيلر بالـ ml لكل إجراء ومريض)',
+                    'نماذج إقرار وموافقة إلكترونية يُوقع عليها المريض على الإيباد/التابلت',
+                    'مقارنة بصرية لحالات قبل وبعد مع وضع علامة مائية لخصوصية العيادة'
+                ],
+                featuresEn: [
+                    'Laser session decrement counters with automated WhatsApp reminders',
+                    'Consumables tracking for Botox & Fillers per milliliter per procedure',
+                    'Digital e-consent signatures signed directly on iPads or tablets',
+                    'Side-by-side Before/After photo comparison with clinic watermarking'
+                ],
+                widgetTitleAr: 'متابعة استهلاك الحقن وباقات الليزر',
+                widgetTitleEn: 'Cosmetics Stock & Package Tracker',
+                widgetHtml: `
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <div class="flex justify-between font-bold">
+                            <span>باقة ليزر جسم كامل:</span>
+                            <span class="text-primary font-black">الجلسة 3 من 6</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1 text-[11px]">
+                        <span class="font-bold text-slate-700 block">سجل حقن البوتوكس المتبقي:</span>
+                        <div class="flex justify-between text-[10px] text-slate-500">
+                            <span>أمبول فيلر:</span>
+                            <span class="text-emerald-600 font-bold">تم حقن 0.7ml • متبقي 0.3ml</span>
+                        </div>
+                    </div>
+                `
+            },
+            'pediatrics': {
+                icon: '👶',
+                badgeAr: 'طب الأطفال وحديثي الولادة',
+                badgeEn: 'Pediatrics Practice',
+                titleAr: 'عيادات الأطفال وحديثي الولادة',
+                titleEn: 'Pediatric Clinics',
+                descAr: 'منحنيات نمو معتمدة عالمياً، جدول تطعيمات تلقائي، وحاسبة ذكية لجرعات الأدوية حسب وزن الطفل.',
+                descEn: 'WHO growth percentile curves, automated vaccination alert schedules, weight-based dosage calculator, and parent portal.',
+                featuresAr: [
+                    'منحنيات النمو الذكية المعتمدة من منظمة الصحة العالمية',
+                    'جدول التطعيمات المكتمل مع إرسال رسائل تذكير تلقائية عبر الواتساب للأهل',
+                    'حاسبة جرعات الأدوية التلقائية والشراب بناءً على وزن الطفل بالكيلوجرام',
+                    'بوابات للأهالي للوصول إلى الروشتات الرقمية والسجل الطبي وسجل التطعيمات'
+                ],
+                featuresEn: [
+                    'WHO smart growth percentile curves (Height, Weight & Head Circumference)',
+                    'Comprehensive vaccination timetable with automated WhatsApp notifications to parents',
+                    'Automatic pediatric dosage calculator based on infant weight',
+                    'Parent portal for instant digital prescriptions and vaccination history'
+                ],
+                widgetTitleAr: 'حاسبة جرعات ولقاحات الأطفال',
+                widgetTitleEn: 'Pediatric Growth & Dosage Calculator',
+                widgetHtml: `
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5 text-[11px]">
+                        <div class="flex justify-between font-bold">
+                            <span>وزن الطفل: 12.5 كجم</span>
+                            <span class="text-emerald-600">منحنى النمو: طبيعي ومثالي</span>
+                        </div>
+                        <div class="p-2 rounded bg-blue-50 text-primary font-bold text-[10px]">
+                            💊 جرعة خافض الحرارة: 3.5 مل كل 6 ساعات عند اللزوم
+                        </div>
+                    </div>
+                    <div class="bg-white p-2.5 rounded-xl border border-slate-200 flex justify-between items-center text-[10px]">
+                        <span class="font-bold text-slate-700">تطعيم الـ 9 أشهر:</span>
+                        <span class="text-emerald-700 font-bold">تنبيه واتساب مُجدول 12 إبريل ✓</span>
+                    </div>
+                `
+            },
+            'physio': {
+                icon: '⚡',
+                badgeAr: 'العلاج الطبيعي والتأهيل',
+                badgeEn: 'Physiotherapy & Rehab',
+                titleAr: 'مراكز العلاج الطبيعي والتأهيل',
+                titleEn: 'Physiotherapy & Rehabilitation',
+                descAr: 'خريطة تفاعلية لأماكن الألم والإصابات، إدارة غرف وأجهزة التأهيل، ومكتبة تمارين ترسل للمريض.',
+                descEn: 'Interactive body pain mapping, video exercise library, therapy room scheduling, and recovery progress tracking.',
+                featuresAr: [
+                    'خريطة جسم تفاعلية لتحديد مناطق الألم والإصابات العضلية بدقة',
+                    'مكتبة تمارين تأهيلية يُرسل رابطها وفيديوهاتها مباشرة لموبايل المريض',
+                    'نظام حجز الغرف والأجهزة والمعدات التأهيلية داخل المركز لمنع التعارض',
+                    'متابعة باقات الجلسات ورسم بياني لتقدم نسبة الشفاء ومدى حركة المفاصل'
+                ],
+                featuresEn: [
+                    'Interactive Body Pain Map for pinpointing muscular & joint injuries',
+                    'Rehabilitation exercise video library sent directly to the patient',
+                    'Therapy room, bed, and rehabilitation equipment scheduling',
+                    'Treatment package tracking and visual Range-of-Motion (ROM) recovery graphs'
+                ],
+                widgetTitleAr: 'خريطة تحديد الألم والتمارين',
+                widgetTitleEn: 'Pain Mapping & Rehab Session',
+                widgetHtml: `
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <div class="flex justify-between font-bold">
+                            <span>منطقة الإصابة: أسفل الظهر (الفقرات القطنية)</span>
+                            <span class="text-rose-500 font-extrabold">مستوى الألم: انخفض من 7 إلى 3</span>
+                        </div>
+                        <div class="text-[10px] text-slate-500">تم حجز جهاز الموجات التصادمية - غرفة 2</div>
+                    </div>
+                    <div class="bg-white p-2 rounded-xl border border-slate-200 flex justify-between items-center text-[10px]">
+                        <span class="font-bold text-slate-800">تمارين تقوية الظهر المنزلية:</span>
+                        <span class="text-primary font-bold">تم الإرسال للواتساب ✓</span>
+                    </div>
+                `
+            }
+        };
+
+        let currentClinicKey = 'nutrition';
+
+        function switchClinic(key) {
+            currentClinicKey = key;
+            const data = clinicData[key];
+
+            // Update Tab styles
+            document.querySelectorAll('.clinic-tab-btn').forEach(btn => {
+                btn.className = "clinic-tab-btn px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200";
+            });
+            const activeBtn = document.getElementById('tab-' + key);
+            if (activeBtn) {
+                activeBtn.className = "clinic-tab-btn px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-primary text-white shadow-md";
+            }
+
+            // Update Details
+            document.getElementById('clinic-icon').innerText = data.icon;
+            document.getElementById('clinic-badge').innerText = currentLang === 'ar' ? data.badgeAr : data.badgeEn;
+            document.getElementById('clinic-title').innerText = currentLang === 'ar' ? data.titleAr : data.titleEn;
+            document.getElementById('clinic-desc').innerText = currentLang === 'ar' ? data.descAr : data.descEn;
+
+            // Render Features
+            const feats = currentLang === 'ar' ? data.featuresAr : data.featuresEn;
+            const featsContainer = document.getElementById('clinic-features');
+            featsContainer.innerHTML = feats.map(f => `
+                <div class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200/60">
+                    <span class="text-emerald-500 font-bold text-sm">✓</span>
+                    <span class="text-slate-700 text-xs font-semibold">${f}</span>
+                </div>
+            `).join('');
+
+            // Update Widget
+            document.getElementById('preview-widget-title').innerText = currentLang === 'ar' ? data.widgetTitleAr : data.widgetTitleEn;
+            document.getElementById('preview-widget-content').innerHTML = data.widgetHtml;
+
+            // Update WhatsApp button for this clinic
+            const clinicName = currentLang === 'ar' ? data.titleAr : data.titleEn;
+            const msg = currentLang === 'ar'
+                ? `مرحباً، أود طلب استشارة وتجربة مجانية لنظام: ${clinicName}`
+                : `Hello Entrustic! I would like to request a consultation and demo for: ${clinicName}`;
+            document.getElementById('clinic-whatsapp-btn').href = `https://wa.me/201205549415?text=${encodeURIComponent(msg)}`;
+        }
+
+        function switchConfigMode(mode) {
+            const viewPkg = document.getElementById('view-packages');
+            const viewCustom = document.getElementById('view-custom');
+            const btnPkg = document.getElementById('btn-mode-packages');
+            const btnCustom = document.getElementById('btn-mode-custom');
+            if (!viewPkg || !viewCustom) return;
+
+            const activeClass = "px-6 py-3 rounded-2xl font-black text-xs sm:text-sm transition flex items-center gap-2 bg-primary text-white shadow-md shadow-primary/20";
+            const inactiveClass = "px-6 py-3 rounded-2xl font-black text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 hover:bg-slate-100 border border-slate-200";
+
+            if (mode === 'packages') {
+                viewPkg.classList.remove('hidden');
+                viewCustom.classList.add('hidden');
+                btnPkg.className = activeClass;
+                btnCustom.className = inactiveClass;
+            } else {
+                viewPkg.classList.add('hidden');
+                viewCustom.classList.remove('hidden');
+                btnPkg.className = inactiveClass;
+                btnCustom.className = activeClass;
+            }
+        }
+
+        function updateAllWhatsAppLinks() {
+            const setLink = (id, textAr, textEn) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const text = currentLang === 'ar' ? textAr : textEn;
+                el.href = `https://wa.me/201205549415?text=${encodeURIComponent(text)}`;
+            };
+
+            // Navbar & General CTAs
+            setLink(
+                'nav-whatsapp-btn',
+                'مرحباً، أود الاستفسار عن خدماتكم البرمجية وتطوير المواقع.',
+                'Hello! I would like to inquire about your software and web development services.'
+            );
+            setLink(
+                'floating-wa-btn',
+                'مرحباً، أود الاستفسار عن خدماتكم.',
+                'Hello! I would like to inquire about your services.'
+            );
+            setLink(
+                'footer-support-btn',
+                'مرحباً، أود التواصل مع فريق الدعم الفني.',
+                'Hello! I would like to contact Technical Support.'
+            );
+
+            // Websites Section
+            setLink(
+                'web-cat1-btn',
+                'مرحباً، أود تصميم وبرمجة موقع إلكتروني لشركتي.',
+                'Hello! I would like to design and develop a corporate website for my company.'
+            );
+            setLink(
+                'web-cat2-btn',
+                'مرحباً، أود تصميم صفحة هبوط تسويقية مخصصة للإعلانات.',
+                'Hello! I would like to build a high-converting landing page for our ad campaigns.'
+            );
+            setLink(
+                'web-cat3-btn',
+                'مرحباً، أود الاستفسار عن متجر إلكتروني أو بوابة حجز تفاعلية.',
+                'Hello! I would like to inquire about building an interactive web portal or e-commerce store.'
+            );
+            setLink(
+                'web-guarantee-btn',
+                'مرحباً، أرغب في استشارة هندسية لتطوير موقع ويب.',
+                'Hello! I would like a technical consultation for website development.'
+            );
+
+            // Bento Grid Commercial
+            setLink(
+                'bento-gym-btn',
+                'مرحباً، أود الاستفسار عن نظام إدارة أندية الجيم وبوابات الدخول.',
+                'Hello! I would like to inquire about the Gym & Turnstiles Management System.'
+            );
+            setLink(
+                'bento-pos-btn',
+                'مرحباً، أود الاستفسار عن نظام كاشير المحلات ونقاط البيع.',
+                'Hello! I would like to inquire about the Retail & POS Offline Cashier System.'
+            );
+            setLink(
+                'bento-custom-btn',
+                'مرحباً، لدي فكرة مشروع وأود مناقشة تطوير نظام مخصص لها.',
+                'Hello! I have a project idea and would like to discuss developing a custom enterprise system.'
+            );
+
+            // Packages & Bespoke VIP
+            setLink(
+                'pkg1-wa-btn',
+                'مرحباً، أود الاستفسار عن باقة (1: الأساسية) لعيادتي أو مشروعي.',
+                'Hello Entrustic! I would like to inquire about Package 1: Essential Starter.'
+            );
+            setLink(
+                'pkg2-wa-btn',
+                'مرحباً، أود الاستفسار عن باقة (2: الاحترافية والواتساب) لعيادتي أو مشروعي.',
+                'Hello Entrustic! I would like to inquire about Package 2: Pro Automation & WhatsApp.'
+            );
+            setLink(
+                'pkg3-wa-btn',
+                'مرحباً، أود الاستفسار عن باقة (3: المنظومة الشاملة وموقع الويب) لعيادتي أو مشروعي.',
+                'Hello Entrustic! I would like to inquire about Package 3: Complete Ecosystem & Website.'
+            );
+            setLink(
+                'vip-wa-btn',
+                'مرحباً، أود التحدث مباشرة مع مهندس البرمجيات لمناقشة تفصيل نظام مخصص بالكامل لمشروعي الخاص.',
+                'Hello Entrustic! I would like to speak directly with a lead software engineer to build a 100% tailor-made system for my business.'
+            );
+        }
+
+        function updateConfigMessage() {
+            const select = document.getElementById('config-sector');
+            if (select && select.value) {
+                selectedSectorId = select.value;
+            }
+            const selectedOption = sectorOptions.find(o => o.id === selectedSectorId) || sectorOptions[0];
+            const sectorName = currentLang === 'ar' ? selectedOption.ar : selectedOption.en;
+
+            const isChecked = (id) => {
+                const el = document.getElementById(id);
+                return el && el.checked;
+            };
+
+            const features = [];
+            if (currentLang === 'ar') {
+                if (isChecked('chk-wa')) features.push('✓ ربط الواتساب الآلي');
+                if (isChecked('chk-offline')) features.push('✓ العمل أوفلاين 100%');
+                if (isChecked('chk-patient-app')) features.push('✓ موقع ويب / صفحة هبوط');
+                if (isChecked('chk-mobile-app')) features.push('✓ تطبيق موبايل للعملاء');
+                if (isChecked('chk-multi-branches')) features.push('✓ ربط فروع ومخزن مركزي');
+                if (isChecked('chk-payments')) features.push('✓ دفع إلكتروني وفواتير');
+                if (isChecked('chk-devices')) features.push('✓ ربط أجهزة وبوابات');
+                if (isChecked('chk-cloud')) features.push('✓ سحابة مشفرة ونسخ احتياطي');
+            } else {
+                if (isChecked('chk-wa')) features.push('✓ Automated WhatsApp Alerts');
+                if (isChecked('chk-offline')) features.push('✓ 100% Offline Continuity');
+                if (isChecked('chk-patient-app')) features.push('✓ Website / Landing Page');
+                if (isChecked('chk-mobile-app')) features.push('✓ Dedicated Mobile App');
+                if (isChecked('chk-multi-branches')) features.push('✓ Multi-Branch & Central Warehouse');
+                if (isChecked('chk-payments')) features.push('✓ Online Payments & Thermal Invoices');
+                if (isChecked('chk-devices')) features.push('✓ Hardware & Turnstiles Integration');
+                if (isChecked('chk-cloud')) features.push('✓ Encrypted Cloud & Auto-Backup');
+            }
+
+            const sep = currentLang === 'ar' ? '، ' : ', ';
+            const selectedFeatures = features.length > 0 ? features.join(sep) : (currentLang === 'ar' ? 'نظام أساسي' : 'Standard Baseline');
+
+            let text;
+            if (currentLang === 'ar') {
+                text = `مرحباً، أود الاستفسار وطلب عرض سعر للخدمة:\n- نوع المشروع: ${sectorName}\n- الميزات المطلوبة: ${selectedFeatures}`;
+            } else {
+                text = `Hello Entrustic! I would like to inquire and request a proposal for:\n- Service: ${sectorName}\n- Selected Features: ${selectedFeatures}`;
+            }
+            const submitEl = document.getElementById('custom-wa-submit');
+            if (submitEl) {
+                submitEl.href = `https://wa.me/201205549415?text=${encodeURIComponent(text)}`;
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSectorOptions();
+            switchClinic('nutrition');
+            updateAllWhatsAppLinks();
+            updateConfigMessage();
+        });
+    </script>
+</body>
+</html>
