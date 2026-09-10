@@ -1,4 +1,4 @@
-?<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="description" content="شركة Entrustic للبرمجيات - تصميم وتطوير مواقع الويب الاحترافية وأنظمة إدارة العيادات، المحلات، وأندية الجيم. برمجيات مخصصة بالكامل تعمل بدون إنترنت وبأحدث تقنيات Flutter.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="entrustic-logo.png?v=4">
 
     <!-- Google Fonts: Cairo for Arabic, Plus Jakarta Sans for English -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,31 +52,155 @@
     </script>
     
     <style>
+        /* Base Fonts */
         body {
             font-family: 'Cairo', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
-        [dir="ltr"] body {
-            font-family: '"Plus Jakarta Sans"', 'Cairo', sans-serif;
+        [dir="ltr"] body,
+        [dir="ltr"] * {
+            font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
         }
-        
+
+        /* Glassmorphism Navbar */
         .glass-panel {
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
         }
 
+        /* Dot grid background */
         .bg-grid-pattern {
             background-image: radial-gradient(rgba(14, 87, 149, 0.08) 1px, transparent 1px);
             background-size: 24px 24px;
         }
 
+        /* Animated Hero Gradient */
+        @keyframes gradientShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-animated-bg {
+            background: linear-gradient(135deg, #F0F7FD, #DCEEFA, #e8f5ff, #F0F7FD);
+            background-size: 300% 300%;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        /* Floating animation (WA bubble) */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+            50%       { transform: translateY(-8px); }
         }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
+        .animate-float { animation: float 4s ease-in-out infinite; }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.65s cubic-bezier(.4,0,.2,1), transform 0.65s cubic-bezier(.4,0,.2,1);
         }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* Button Shimmer on Hover */
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: skewX(-20deg);
+        }
+        .btn-shimmer:hover::after {
+            left: 150%;
+            transition: left 0.55s ease;
+        }
+
+        /* Card Hover Glow */
+        .card-glow {
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 0 2px rgba(14,87,149,0.15), 0 20px 40px -10px rgba(14,87,149,0.12);
+        }
+
+        /* WhatsApp Floating Button Pulse Ring */
+        @keyframes waPulse {
+            0%   { transform: scale(1);    opacity: 0.6; }
+            70%  { transform: scale(1.55); opacity: 0;   }
+            100% { transform: scale(1.55); opacity: 0;   }
+        }
+        .wa-pulse-ring {
+            position: relative;
+        }
+        .wa-pulse-ring::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: #25D366;
+            animation: waPulse 2s ease-out infinite;
+            z-index: -1;
+        }
+
+        /* Back-to-Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 6.5rem;
+            left: 1.5rem;
+            z-index: 40;
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 50%;
+            background: white;
+            border: 1.5px solid #E2E8F0;
+            box-shadow: 0 4px 14px -4px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s, background 0.2s, color 0.2s;
+            color: #0E5795;
+        }
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #back-to-top:hover {
+            background: #0E5795;
+            color: white;
+            border-color: #0E5795;
+        }
+
+        /* Custom elegant scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #F8FAFC; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+        /* Navbar shadow on scroll */
+        #navbar.scrolled {
+            box-shadow: 0 4px 24px -4px rgba(14, 87, 149, 0.10);
+        }
+
+        /* Smooth section anchor offset */
+        section { scroll-margin-top: 80px; }
     </style>
 </head>
 <body class="bg-[#F8FAFC] text-slate-800 antialiased selection:bg-primary selection:text-white relative overflow-x-hidden">
@@ -86,8 +210,8 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
             <!-- Logo with transparent PNG -->
-            <a href="#" class="flex items-center group py-1">
-                <img src="entrustic-logo.png?v=3" alt="Entrustic" class="h-12 sm:h-15 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+            <a href="#" class="flex items-center group py-1 mr-2 sm:mr-4">
+                <img src="entrustic-logo.png?v=4" alt="Entrustic" class="h-14 sm:h-16 w-auto max-w-[220px] sm:max-w-[260px] object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-sm">
             </a>
 
             <!-- Desktop Navigation Links -->
@@ -114,7 +238,7 @@
                 </button>
 
                 <!-- Book Demo Button -->
-                <a id="nav-whatsapp-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85." target="_blank" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-glow transition hover:scale-102">
+                <a id="nav-whatsapp-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85." target="_blank" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-glow transition hover:scale-102 btn-shimmer">
                     <span data-i18n="btn_consult">تواصل معنا</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -125,7 +249,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="overview" class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden bg-gradient-to-b from-primary-50/70 via-white to-[#F8FAFC]">
+    <section id="overview" class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden hero-animated-bg">
         <!-- Decorative Ambient Background Blobs -->
         <div class="absolute top-10 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute bottom-10 left-10 w-96 h-96 bg-accent/15 rounded-full blur-3xl pointer-events-none"></div>
@@ -983,7 +1107,7 @@
                             <!-- WhatsApp Header with Entrustic Logo Icon -->
                             <div class="bg-[#075E54] text-white p-3 pt-6 flex items-center gap-2.5 shadow-md">
                                 <div class="w-8 h-8 rounded-full bg-white p-1 flex items-center justify-center shadow-xs overflow-hidden">
-                                    <img src="logo.png" alt="Entrustic" class="w-full h-full object-contain">
+                                    <img src="entrustic-logo.png?v=4" alt="Entrustic" class="w-full h-full object-contain">
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-xs leading-none" data-i18n="wa_bot_name">مساعد Entrustic الذكي</h4>
@@ -1361,7 +1485,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-slate-800/80 pb-10">
                 <div class="flex items-center">
-                    <img src="entrustic-logo.png?v=3" alt="Entrustic" class="h-14 w-auto object-contain bg-white/95 px-3.5 py-1.5 rounded-2xl shadow-md">
+                    <img src="entrustic-logo.png?v=4" alt="Entrustic" class="h-14 w-auto max-w-[220px] object-contain bg-white/95 px-3.5 py-1.5 rounded-2xl shadow-md">
                 </div>
 
                 <div class="flex flex-wrap items-center justify-center gap-6 font-bold text-slate-400 text-xs">
@@ -1381,9 +1505,19 @@
     </footer>
 
     <!-- Floating Quick WhatsApp Button -->
-    <a id="floating-wa-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20Entrustic." target="_blank" class="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full bg-whatsapp hover:bg-whatsappDark text-white shadow-2xl flex items-center justify-center text-3xl hover:scale-110 transition-transform duration-300">
-        💬
+    <a id="floating-wa-btn" href="https://wa.me/201205549415?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20Entrustic." target="_blank" title="تواصل معنا عبر الواتساب" class="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full bg-whatsapp hover:bg-whatsappDark text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 wa-pulse-ring">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-7 h-7 fill-white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.856L0 24l6.336-1.508A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.866 9.866 0 01-5.031-1.371l-.361-.214-3.762.895.952-3.665-.235-.376A9.849 9.849 0 012.118 12C2.118 6.533 6.533 2.118 12 2.118S21.882 6.533 21.882 12 17.467 21.882 12 21.882z"/>
+        </svg>
     </a>
+
+    <!-- Back-to-Top Button -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="العودة للأعلى">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+        </svg>
+    </button>
 
     <!-- Interactive Logic Script -->
     <script>
@@ -2302,6 +2436,50 @@
             switchClinic('nutrition');
             updateAllWhatsAppLinks();
             updateConfigMessage();
+
+            // Navbar shadow on scroll
+            const navbar = document.getElementById('navbar');
+            const backToTop = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY;
+                // Navbar shadow
+                navbar.classList.toggle('scrolled', y > 20);
+                // Back-to-top button visibility
+                backToTop.classList.toggle('show', y > 400);
+            }, { passive: true });
+
+            // ── Scroll Reveal via IntersectionObserver ──
+            // Add .reveal to all major cards and section headers automatically
+            const revealTargets = document.querySelectorAll(
+                'section > div > div > div, .rounded-3xl, .rounded-2xl, h2, h3'
+            );
+            revealTargets.forEach((el, i) => {
+                // Skip tiny or already-animated elements
+                if (el.closest('#navbar') || el.classList.contains('absolute') || el.tagName === 'H3' && el.closest('.rounded-3xl')) return;
+                el.classList.add('reveal');
+                // Stagger delay for siblings
+                const delay = (i % 4);
+                if (delay === 1) el.classList.add('reveal-delay-1');
+                if (delay === 2) el.classList.add('reveal-delay-2');
+                if (delay === 3) el.classList.add('reveal-delay-3');
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // ── Card Glow — add class to main service cards ──
+            document.querySelectorAll(
+                '#websites .rounded-3xl, #specialties .rounded-3xl, #commercial-deep .rounded-3xl, #configurator .rounded-3xl'
+            ).forEach(el => el.classList.add('card-glow'));
         });
     </script>
 </body>
